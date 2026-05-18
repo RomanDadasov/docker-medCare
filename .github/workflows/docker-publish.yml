@@ -29,6 +29,8 @@ jobs:
           context: ./hospital-frontend
           push: true
           tags: roman913/hospital-frontend:latest
+          build-args: |
+            VITE_API_URL=http://51.21.160.18:5171
 
   deploy:
     needs: build-and-push
