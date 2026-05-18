@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://${import.meta.env.VITE_API_URL}/api";
+const API_URL = `${import.meta.env.VITE_API_URL}/api";
 
 
 const SPECIALIZATION_COLORS = {
@@ -118,7 +118,7 @@ function DoctorCard({ doc, index }) {
         background: "rgba(255,255,255,0.03)",
         border: "1px solid rgba(255,255,255,0.08)",
         backdropFilter: "blur(10px)",
-        boxShadow: hovered ? `0 30px 80px rgba(0,0,0,0.5), 0 0 40px ${color.glow}20` : "0 4px 20px rgba(0,0,0,0.3)",
+        boxShadow: hovered ? `0 30px 80px rgba(0, 0, 0, 0.5), 0 0 40px ${ color.glow } 20` : "0 4px 20px rgba(0,0,0,0.3)",
         transition: "box-shadow 0.4s ease",
       }}
     >
@@ -128,7 +128,7 @@ function DoctorCard({ doc, index }) {
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="absolute inset-0 rounded-3xl pointer-events-none z-10"
-            style={{ boxShadow: `inset 0 0 60px ${color.glow}15` }}
+            style={{ boxShadow: `inset 0 0 60px ${ color.glow } 15` }}
           />
         )}
       </AnimatePresence>
@@ -156,7 +156,7 @@ function DoctorCard({ doc, index }) {
             />
           </>
         ) : (
-          <div className="w-full h-full flex items-center justify-center relative" style={{ background: `linear-gradient(135deg, hsl(${color.hue} / 0.15), rgba(2,12,24,0.8))` }}>
+          <div className="w-full h-full flex items-center justify-center relative" style={{ background: `linear - gradient(135deg, hsl(${ color.hue } / 0.15), rgba(2, 12, 24, 0.8))` }}>
             {/* Grid bg */}
             <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)", backgroundSize: "30px 30px" }} />
 
@@ -168,9 +168,9 @@ function DoctorCard({ doc, index }) {
               <div
                 className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl"
                 style={{
-                  background: `hsl(${color.hue} / 0.15)`,
-                  border: `1px solid hsl(${color.hue} / 0.3)`,
-                  boxShadow: `0 0 30px ${color.glow}30`,
+                  background: `hsl(${ color.hue } / 0.15)`,
+                  border: `1px solid hsl(${ color.hue } / 0.3)`,
+                  boxShadow: `0 0 30px ${ color.glow } 30`,
                 }}
               >
                 {doc.fullName?.[0] || color.icon}
@@ -188,9 +188,9 @@ function DoctorCard({ doc, index }) {
           <span
             className="flex items-center gap-1.5 text-xs font-black px-3 py-1.5 rounded-xl"
             style={{
-              background: `hsl(${color.hue} / 0.2)`,
-              border: `1px solid hsl(${color.hue} / 0.4)`,
-              color: `hsl(${color.hue})`,
+              background: `hsl(${ color.hue } / 0.2)`,
+              border: `1px solid hsl(${ color.hue } / 0.4)`,
+              color: `hsl(${ color.hue })`,
               backdropFilter: "blur(12px)",
             }}
           >
@@ -210,7 +210,7 @@ function DoctorCard({ doc, index }) {
         {/* Divider */}
         <motion.div
           className="h-px rounded-full mb-3"
-          style={{ background: `linear-gradient(to right, ${color.glow}50, transparent)` }}
+          style={{ background: `linear - gradient(to right, ${ color.glow }50, transparent)` }}
           animate={{ width: hovered ? "100%" : "40%" }}
           transition={{ duration: 0.4 }}
         />
@@ -232,13 +232,13 @@ function DoctorCard({ doc, index }) {
 
         {/* Phone CTA */}
         {doc.phone ? (
-          <a href={`tel:${doc.phone}`}>
+          <a href={`tel:${ doc.phone } `}>
             <MagneticBtn
               whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
               className="flex items-center justify-center gap-2 text-xs font-black px-4 py-2.5 rounded-xl w-full text-white"
               style={{
-                background: `linear-gradient(135deg, ${color.glow}cc, ${color.glow}88)`,
-                boxShadow: `0 4px 20px ${color.glow}30`,
+                background: `linear - gradient(135deg, ${ color.glow }cc, ${ color.glow }88)`,
+                boxShadow: `0 4px 20px ${ color.glow } 30`,
               }}
             >
               📞 {doc.phone}
@@ -261,7 +261,7 @@ function DoctorCard({ doc, index }) {
 
       <div
         className="absolute bottom-0 left-0 right-0 h-px"
-        style={{ background: `linear-gradient(to right, transparent, ${color.glow}60, transparent)` }}
+        style={{ background: `linear - gradient(to right, transparent, ${ color.glow }60, transparent)` }}
       />
     </motion.div>
   );
@@ -388,7 +388,7 @@ function HeroSection({ search, setSearch, total, t }) {
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
           {[
-            { n: `${total || "50"}+`, l: "Specialists" },
+            { n: `${ total || "50" } +`, l: "Specialists" },
             { n: "15+", l: "Years Experience" },
             { n: "24/7", l: "Available" },
           ].map((s, i) => (
@@ -431,17 +431,17 @@ function FilterBar({ active, setActive, specs }) {
               transition={{ delay: i * 0.05 }}
               className="flex-shrink-0 text-xs font-black px-4 py-2 rounded-xl transition-all duration-300"
               style={isActive ? {
-                background: `hsl(${color.hue} / 0.2)`,
-                border: `1px solid hsl(${color.hue} / 0.5)`,
-                color: `hsl(${color.hue})`,
-                boxShadow: `0 0 20px ${color.glow}20`,
+                background: `hsl(${ color.hue } / 0.2)`,
+                border: `1px solid hsl(${ color.hue } / 0.5)`,
+                color: `hsl(${ color.hue })`,
+                boxShadow: `0 0 20px ${ color.glow } 20`,
               } : {
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.08)",
                 color: "rgba(255,255,255,0.35)",
               }}
             >
-              {spec === "All" ? "🏥 All" : `${getSpecColor(spec).icon} ${spec}`}
+              {spec === "All" ? "🏥 All" : `${ getSpecColor(spec).icon } ${ spec } `}
             </motion.button>
           );
         })}
@@ -481,75 +481,75 @@ export default function PublicDoctorsPage() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`${API_URL}/doctors?pageSize=100`);
-        const data = await res.json();
-        setDoctors(data?.data?.items || []);
+        const res = await fetch(`${ API_URL }/doctors?pageSize=100`);
+const data = await res.json();
+setDoctors(data?.data?.items || []);
       } catch { }
-      finally { setLoading(false); }
-    })();
+finally { setLoading(false); }
+    }) ();
   }, []);
 
 
-  const specs = [...new Set(doctors.map(d => d.specialization).filter(Boolean))];
+const specs = [...new Set(doctors.map(d => d.specialization).filter(Boolean))];
 
-  const filtered = doctors.filter((d) => {
-    const matchSearch =
-      d.fullName?.toLowerCase().includes(search.toLowerCase()) ||
-      d.specialization?.toLowerCase().includes(search.toLowerCase()) ||
-      d.departmentName?.toLowerCase().includes(search.toLowerCase());
-    const matchSpec = activeSpec === "All" || d.specialization === activeSpec;
-    return matchSearch && matchSpec;
-  });
+const filtered = doctors.filter((d) => {
+  const matchSearch =
+    d.fullName?.toLowerCase().includes(search.toLowerCase()) ||
+    d.specialization?.toLowerCase().includes(search.toLowerCase()) ||
+    d.departmentName?.toLowerCase().includes(search.toLowerCase());
+  const matchSpec = activeSpec === "All" || d.specialization === activeSpec;
+  return matchSearch && matchSpec;
+});
 
-  return (
-    <div className="overflow-x-hidden" style={{ background: "#020c18", minHeight: "100vh" }}>
-      <CursorGlow />
+return (
+  <div className="overflow-x-hidden" style={{ background: "#020c18", minHeight: "100vh" }}>
+    <CursorGlow />
 
-      <HeroSection search={search} setSearch={setSearch} total={doctors.length} t={t} />
+    <HeroSection search={search} setSearch={setSearch} total={doctors.length} t={t} />
 
-      {!loading && specs.length > 0 && (
-        <FilterBar active={activeSpec} setActive={setActiveSpec} specs={specs} />
-      )}
+    {!loading && specs.length > 0 && (
+      <FilterBar active={activeSpec} setActive={setActiveSpec} specs={specs} />
+    )}
 
-      {/* Grid section */}
-      <section className="relative py-20" style={{ background: "#020c18" }}>
+    {/* Grid section */}
+    <section className="relative py-20" style={{ background: "#020c18" }}>
 
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 50% 0%, rgba(16,185,129,0.04) 0%, transparent 60%)" }} />
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 50% 0%, rgba(16,185,129,0.04) 0%, transparent 60%)" }} />
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
 
-        <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative max-w-7xl mx-auto px-6">
 
-          {/* Result count */}
-          <AnimatePresence>
-            {!loading && (
+        {/* Result count */}
+        <AnimatePresence>
+          {!loading && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              className="flex items-center justify-between mb-10"
+            >
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.25)" }}>
+                Showing <span className="text-white font-bold">{filtered.length}</span> {t("DoctorsFound") || "specialists"}
+              </p>
+              <div className="h-px flex-1 mx-6" style={{ background: "rgba(255,255,255,0.05)" }} />
               <motion.div
-                initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                className="flex items-center justify-between mb-10"
-              >
-                <p className="text-sm" style={{ color: "rgba(255,255,255,0.25)" }}>
-                  Showing <span className="text-white font-bold">{filtered.length}</span> {t("DoctorsFound") || "specialists"}
-                </p>
-                <div className="h-px flex-1 mx-6" style={{ background: "rgba(255,255,255,0.05)" }} />
-                <motion.div
-                  className="w-2 h-2 rounded-full bg-emerald-400"
-                  animate={{ scale: [1, 1.5, 1], opacity: [1, 0.3, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+                className="w-2 h-2 rounded-full bg-emerald-400"
+                animate={{ scale: [1, 1.5, 1], opacity: [1, 0.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-          {/* Card grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {loading
-              ? [...Array(8)].map((_, i) => <SkeletonCard key={i} />)
-              : filtered.length === 0
-                ? <EmptyState t={t} />
-                : filtered.map((doc, i) => <DoctorCard key={doc.id} doc={doc} index={i} />)
-            }
-          </div>
+        {/* Card grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {loading
+            ? [...Array(8)].map((_, i) => <SkeletonCard key={i} />)
+            : filtered.length === 0
+              ? <EmptyState t={t} />
+              : filtered.map((doc, i) => <DoctorCard key={doc.id} doc={doc} index={i} />)
+          }
         </div>
-      </section>
-    </div>
-  );
+      </div>
+    </section>
+  </div>
+);
 }

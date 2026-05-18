@@ -4,7 +4,7 @@ import { getTodayQueue, addToQueue, callNext, completeAppointment } from "../../
 import { getAppointments } from "../../api/appointmentApi";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://${import.meta.env.VITE_API_URL}";
+const API_URL = `${import.meta.env.VITE_API_URL}";
 
 const QueueManagement = () => {
   const { t } = useTranslation();
@@ -42,7 +42,7 @@ const QueueManagement = () => {
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()
-      .withUrl(`${API_URL}/hubs/queue`)
+      .withUrl(`${ API_URL }/hubs/queue`)
       .withAutomaticReconnect()
       .configureLogging(LogLevel.None)
       .build();
@@ -84,8 +84,8 @@ const QueueManagement = () => {
           { label: t("InProgress"), value: queue?.current ? 1 : 0, color: "text-emerald-600", bg: "bg-emerald-50" },
           { label: t("Completed"), value: queue?.completed?.length || 0, color: "text-sky-600", bg: "bg-sky-50" },
         ].map((s) => (
-          <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-gray-100 shadow-sm`}>
-            <p className={`text-3xl font-black ${s.color}`}>{s.value}</p>
+          <div key={s.label} className={`${ s.bg } rounded - 2xl p - 4 border border - gray - 100 shadow - sm`}>
+            <p className={`text - 3xl font - black ${ s.color } `}>{s.value}</p>
             <p className="text-slate-500 text-xs mt-1">{s.label}</p>
           </div>
         ))}
@@ -158,12 +158,12 @@ const QueueManagement = () => {
               <p className="text-slate-400 text-sm text-center py-8">{t("EmptyQueue")}</p>
             )}
             {queue?.waiting?.map((apt, i) => (
-              <div key={apt.id} className={`flex items-center gap-3 p-3 rounded-xl border ${i === 0 ? "bg-amber-50 border-amber-200" : "bg-slate-50 border-slate-100"}`}>
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 ${i === 0 ? "bg-amber-500 text-white" : "bg-slate-200 text-slate-600"}`}>
+              <div key={apt.id} className={`flex items - center gap - 3 p - 3 rounded - xl border ${ i === 0 ? "bg-amber-50 border-amber-200" : "bg-slate-50 border-slate-100" } `}>
+                <div className={`w - 10 h - 10 rounded - xl flex items - center justify - center font - bold text - sm shrink - 0 ${ i === 0 ? "bg-amber-500 text-white" : "bg-slate-200 text-slate-600" } `}>
                   {apt.queueNumber}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-slate-600">{i === 0 ? "⏭ " + t("Next") : `${i + 1}. ${t("InQueue")}`}</p>
+                  <p className="text-xs font-semibold text-slate-600">{i === 0 ? "⏭ " + t("Next") : `${ i + 1 }. ${ t("InQueue") } `}</p>
                   <p className="text-xs text-slate-400 truncate">{t("Dr")} {apt.doctorName}</p>
                   <p className="text-xs text-slate-300">~{apt.estimatedWaitMinutes} {t("Minutes")}</p>
                 </div>

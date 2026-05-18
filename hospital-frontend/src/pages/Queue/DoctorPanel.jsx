@@ -3,7 +3,7 @@ import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { getTodayQueue, completeAppointment, callNext } from "../../api/queueApi";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://${import.meta.env.VITE_API_URL}";
+const API_URL = `${import.meta.env.VITE_API_URL}";
 
 const DoctorPanel = () => {
   const { t } = useTranslation();
@@ -38,7 +38,7 @@ const DoctorPanel = () => {
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()
-      .withUrl(`${API_URL}/hubs/queue`)
+      .withUrl(`${ API_URL }/hubs/queue`)
       .withAutomaticReconnect()
       .configureLogging(LogLevel.None)
       .build();
@@ -161,14 +161,14 @@ const DoctorPanel = () => {
             {queue.waiting.map((apt, i) => (
               <div
                 key={apt.id}
-                className={`flex items-center justify-between p-3 rounded-xl ${i === 0 ? "bg-amber-50 border border-amber-100" : "bg-slate-50"}`}
+                className={`flex items - center justify - between p - 3 rounded - xl ${ i === 0 ? "bg-amber-50 border border-amber-100" : "bg-slate-50" } `}
               >
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm ${i === 0 ? "bg-amber-500 text-white" : "bg-slate-200 text-slate-600"}`}>
+                  <div className={`w - 10 h - 10 rounded - xl flex items - center justify - center font - bold text - sm ${ i === 0 ? "bg-amber-500 text-white" : "bg-slate-200 text-slate-600" } `}>
                     {apt.queueNumber}
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-slate-600">{i === 0 ? t("Next") : `${i + 1}. ${t("InQueue")}`}</p>
+                    <p className="text-xs font-semibold text-slate-600">{i === 0 ? t("Next") : `${ i + 1 }. ${ t("InQueue") } `}</p>
                     <p className="text-xs text-slate-400">~{apt.estimatedWaitMinutes} {t("MinutesWait")}</p>
                   </div>
                 </div>

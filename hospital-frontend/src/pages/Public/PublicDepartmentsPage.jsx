@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://${import.meta.env.VITE_API_URL}/api";
+const API_URL = `${import.meta.env.VITE_API_URL}/api";
 
 const gradients = [
   "from-emerald-500 to-teal-500",
@@ -81,7 +81,7 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="absolute -inset-0.5 rounded-3xl blur-xl pointer-events-none"
-            style={{ background: `radial-gradient(circle at center, ${glowColor}40, transparent 70%)` }}
+            style={{ background: `radial-gradient(circle at center, ${ glowColor }40, transparent 70 %)` }}
           />
         )}
       </AnimatePresence>
@@ -102,7 +102,7 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
             </>
           ) : (
             <motion.div
-              className={`w-full h-full bg-gradient-to-br ${gradient}`}
+              className={`w - full h - full bg - gradient - to - br ${ gradient } `}
               animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
               transition={{ duration: 0.5 }}
             >
@@ -178,7 +178,7 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
                   </div>
                 )}
               </div>
-              <div className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg bg-gradient-to-r ${gradient} text-white shadow-md`}>
+              <div className={`inline - flex items - center gap - 1.5 text - xs font - bold px - 2.5 py - 1 rounded - lg bg - gradient - to - r ${ gradient } text - white shadow - md`}>
                 <span>👨‍⚕️</span>
                 <span>{dept.doctorCount}</span>
               </div>
@@ -251,7 +251,7 @@ function StatItem({ value, label, icon, color }) {
       </motion.div>
       <p
         className="text-4xl font-black mb-1.5"
-        style={{ color, textShadow: `0 0 20px ${color}60` }}
+        style={{ color, textShadow: `0 0 20px ${ color } 60` }}
       >
         <span ref={ref}>{count}</span>+
       </p>
@@ -272,255 +272,255 @@ export default function PublicDepartmentsPage() {
   useEffect(() => {
     const fetchDepts = async () => {
       try {
-        const res = await fetch(`${API_URL}/departments`);
-        const data = await res.json();
-        setDepartments(data?.data || []);
+        const res = await fetch(`${ API_URL }/departments`);
+const data = await res.json();
+setDepartments(data?.data || []);
       } catch (error) {
-        console.error("Failed to fetch departments:", error);
-      } finally {
-        setLoading(false);
-      }
+  console.error("Failed to fetch departments:", error);
+} finally {
+  setLoading(false);
+}
     };
-    fetchDepts();
+fetchDepts();
   }, []);
 
-  return (
-    <div className="overflow-x-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+return (
+  <div className="overflow-x-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
 
-      {/* HERO SECTION */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(16,185,129,0.15),transparent_60%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_60%,rgba(6,182,212,0.1),transparent_55%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_80%,rgba(139,92,246,0.08),transparent_50%)]" />
-        </div>
+    {/* HERO SECTION */}
+    <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(16,185,129,0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_60%,rgba(6,182,212,0.1),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_80%,rgba(139,92,246,0.08),transparent_50%)]" />
+      </div>
 
-        <div className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.5) 1px,transparent 1px)", backgroundSize: "60px 60px" }}
+      <div className="absolute inset-0 opacity-[0.03]"
+        style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.5) 1px,transparent 1px)", backgroundSize: "60px 60px" }}
+      />
+
+      <FloatingOrb size={400} x="-10%" y="20%" color="rgba(16,185,129,0.08)" delay={0} duration={8} />
+      <FloatingOrb size={350} x="70%" y="50%" color="rgba(6,182,212,0.06)" delay={2} duration={10} />
+      <FloatingOrb size={300} x="50%" y="10%" color="rgba(139,92,246,0.05)" delay={1} duration={7} />
+      <FloatingOrb size={250} x="90%" y="80%" color="rgba(245,158,11,0.04)" delay={3} duration={9} />
+
+      {Array.from({ length: 30 }).map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full bg-white"
+          style={{
+            width: Math.random() * 2 + 1,
+            height: Math.random() * 2 + 1,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            opacity: Math.random() * 0.5,
+          }}
+          animate={{ opacity: [0, 0.8, 0], scale: [1, 1.5, 1] }}
+          transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
         />
+      ))}
 
-        <FloatingOrb size={400} x="-10%" y="20%" color="rgba(16,185,129,0.08)" delay={0} duration={8} />
-        <FloatingOrb size={350} x="70%" y="50%" color="rgba(6,182,212,0.06)" delay={2} duration={10} />
-        <FloatingOrb size={300} x="50%" y="10%" color="rgba(139,92,246,0.05)" delay={1} duration={7} />
-        <FloatingOrb size={250} x="90%" y="80%" color="rgba(245,158,11,0.04)" delay={3} duration={9} />
+      <motion.div style={{ y: headerY, opacity: headerOpacity }} className="relative max-w-6xl mx-auto px-6 py-20 text-center w-full">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
+          <span className="inline-flex items-center gap-2 bg-emerald-500/10 backdrop-blur-sm text-emerald-400 font-bold text-xs uppercase tracking-widest px-5 py-2.5 rounded-full border border-emerald-500/30 mb-8">
+            <motion.span
+              className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+              animate={{ scale: [1, 1.6, 1], opacity: [1, 0.4, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+            {t("OurServices") || "Medical Excellence"}
+          </span>
+        </motion.div>
 
-        {Array.from({ length: 30 }).map((_, i) => (
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="font-black text-white mb-6"
+          style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontFamily: "'Georgia', serif" }}
+        >
+          {t("Departments") || "Medical Departments"}
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-white/40 text-lg max-w-2xl mx-auto leading-relaxed"
+          style={{ fontFamily: "'Georgia', serif" }}
+        >
+          {t("DepartmentsDescription") || "World-class specialists and state-of-the-art technology across every medical discipline"}
+        </motion.p>
+
+        <motion.div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <span className="text-[10px] tracking-[0.2em] uppercase text-white/20">SCROLL</span>
+          <div className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent" />
+        </motion.div>
+      </motion.div>
+    </section>
+
+    {/* STATS SECTION */}
+    <section className="relative py-16 border-t border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <StatItem value="500" label="Patients / Day" icon="🏥" color="#10b981" />
+          <StatItem value="50" label="Specialist Doctors" icon="👨‍⚕️" color="#06b6d4" />
+          <StatItem value="20" label="Departments" icon="🏢" color="#8b5cf6" />
+          <StatItem value="24" label="Emergency Care" icon="🚑" color="#f59e0b" />
+        </div>
+      </div>
+    </section>
+
+    {/* DEPARTMENTS SECTION */}
+    <div className="max-w-7xl mx-auto px-6 py-24">
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: i * 0.1 }}
+              className="relative h-[380px]"
+            >
+              <div className="bg-white/5 backdrop-blur-sm rounded-3xl h-full overflow-hidden border border-white/10">
+                <div className="h-48 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-pulse" />
+                <div className="p-5 space-y-3">
+                  <div className="h-6 bg-white/10 rounded-lg w-3/4 animate-pulse" />
+                  <div className="h-4 bg-white/5 rounded-lg w-full animate-pulse" />
+                  <div className="h-4 bg-white/5 rounded-lg w-2/3 animate-pulse" />
+                  <div className="h-8 bg-white/10 rounded-xl w-32 mt-4 animate-pulse" />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      ) : departments.length === 0 ? (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center py-32"
+        >
           <motion.div
-            key={i}
-            className="absolute rounded-full bg-white"
-            style={{
-              width: Math.random() * 2 + 1,
-              height: Math.random() * 2 + 1,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.5,
-            }}
-            animate={{ opacity: [0, 0.8, 0], scale: [1, 1.5, 1] }}
-            transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
-          />
-        ))}
-
-        <motion.div style={{ y: headerY, opacity: headerOpacity }} className="relative max-w-6xl mx-auto px-6 py-20 text-center w-full">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="inline-flex items-center gap-2 bg-emerald-500/10 backdrop-blur-sm text-emerald-400 font-bold text-xs uppercase tracking-widest px-5 py-2.5 rounded-full border border-emerald-500/30 mb-8">
-              <motion.span
-                className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-                animate={{ scale: [1, 1.6, 1], opacity: [1, 0.4, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-              {t("OurServices") || "Medical Excellence"}
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-black text-white mb-6"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", fontFamily: "'Georgia', serif" }}
-          >
-            {t("Departments") || "Medical Departments"}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-white/40 text-lg max-w-2xl mx-auto leading-relaxed"
-            style={{ fontFamily: "'Georgia', serif" }}
-          >
-            {t("DepartmentsDescription") || "World-class specialists and state-of-the-art technology across every medical discipline"}
-          </motion.p>
-
-          <motion.div
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-            animate={{ y: [0, 10, 0] }}
+            className="text-8xl mb-6 inline-block"
+            animate={{ rotate: [0, -10, 10, -5, 5, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <span className="text-[10px] tracking-[0.2em] uppercase text-white/20">SCROLL</span>
-            <div className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent" />
+            🏥
           </motion.div>
+          <p className="text-white/40 font-semibold text-lg mb-2">No Departments Found</p>
+          <p className="text-white/20 text-sm">Please check back later</p>
         </motion.div>
-      </section>
+      ) : (
+        <>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-12"
+          >
+            <p className="inline-flex items-center gap-2 text-white/30 text-sm font-mono">
+              <span className="w-8 h-px bg-gradient-to-r from-transparent to-emerald-500/50" />
+              {departments.length} SPECIALIZED DEPARTMENTS
+              <span className="w-8 h-px bg-gradient-to-l from-transparent to-emerald-500/50" />
+            </p>
+          </motion.div>
 
-      {/* STATS SECTION */}
-      <section className="relative py-16 border-t border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <StatItem value="500" label="Patients / Day" icon="🏥" color="#10b981" />
-            <StatItem value="50" label="Specialist Doctors" icon="👨‍⚕️" color="#06b6d4" />
-            <StatItem value="20" label="Departments" icon="🏢" color="#8b5cf6" />
-            <StatItem value="24" label="Emergency Care" icon="🚑" color="#f59e0b" />
-          </div>
-        </div>
-      </section>
-
-      {/* DEPARTMENTS SECTION */}
-      <div className="max-w-7xl mx-auto px-6 py-24">
-        {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: i * 0.1 }}
-                className="relative h-[380px]"
-              >
-                <div className="bg-white/5 backdrop-blur-sm rounded-3xl h-full overflow-hidden border border-white/10">
-                  <div className="h-48 bg-gradient-to-r from-white/5 via-white/10 to-white/5 animate-pulse" />
-                  <div className="p-5 space-y-3">
-                    <div className="h-6 bg-white/10 rounded-lg w-3/4 animate-pulse" />
-                    <div className="h-4 bg-white/5 rounded-lg w-full animate-pulse" />
-                    <div className="h-4 bg-white/5 rounded-lg w-2/3 animate-pulse" />
-                    <div className="h-8 bg-white/10 rounded-xl w-32 mt-4 animate-pulse" />
-                  </div>
-                </div>
-              </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 auto-rows-fr">
+            {departments.map((dept, i) => (
+              <DepartmentCard
+                key={dept.id}
+                dept={dept}
+                index={i}
+                gradient={gradients[i % gradients.length]}
+                glowColor={glowColors[i % glowColors.length]}
+              />
             ))}
           </div>
-        ) : departments.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-32"
-          >
-            <motion.div
-              className="text-8xl mb-6 inline-block"
-              animate={{ rotate: [0, -10, 10, -5, 5, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              🏥
-            </motion.div>
-            <p className="text-white/40 font-semibold text-lg mb-2">No Departments Found</p>
-            <p className="text-white/20 text-sm">Please check back later</p>
-          </motion.div>
-        ) : (
-          <>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-12"
-            >
-              <p className="inline-flex items-center gap-2 text-white/30 text-sm font-mono">
-                <span className="w-8 h-px bg-gradient-to-r from-transparent to-emerald-500/50" />
-                {departments.length} SPECIALIZED DEPARTMENTS
-                <span className="w-8 h-px bg-gradient-to-l from-transparent to-emerald-500/50" />
-              </p>
-            </motion.div>
+        </>
+      )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 auto-rows-fr">
-              {departments.map((dept, i) => (
-                <DepartmentCard
-                  key={dept.id}
-                  dept={dept}
-                  index={i}
-                  gradient={gradients[i % gradients.length]}
-                  glowColor={glowColors[i % glowColors.length]}
-                />
-              ))}
-            </div>
-          </>
-        )}
+      {/* CTA SECTION */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="mt-28 relative overflow-hidden rounded-3xl"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-teal-900/10 to-slate-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(16,185,129,0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_60%,rgba(6,182,212,0.1),transparent_50%)]" />
 
-        {/* CTA SECTION */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="mt-28 relative overflow-hidden rounded-3xl"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-teal-900/10 to-slate-900" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(16,185,129,0.15),transparent_60%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_60%,rgba(6,182,212,0.1),transparent_50%)]" />
+          className="absolute inset-0 rounded-3xl"
+          animate={{ boxShadow: ["0 0 0px rgba(16,185,129,0)", "0 0 50px rgba(16,185,129,0.15)", "0 0 0px rgba(16,185,129,0)"] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        />
 
+        <div className="relative px-8 py-16 text-center">
           <motion.div
-            className="absolute inset-0 rounded-3xl"
-            animate={{ boxShadow: ["0 0 0px rgba(16,185,129,0)", "0 0 50px rgba(16,185,129,0.15)", "0 0 0px rgba(16,185,129,0)"] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          />
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+            className="text-7xl mb-6"
+          >
+            🩺
+          </motion.div>
 
-          <div className="relative px-8 py-16 text-center">
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-              className="text-7xl mb-6"
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-black text-white mb-3"
+            style={{ fontFamily: "'Georgia', serif" }}
+          >
+            Not Sure Which Department?
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-white/40 max-w-md mx-auto text-sm mb-8"
+          >
+            Use our intelligent symptom checker to find the right specialist for your needs
+          </motion.p>
+
+          <Link to="/symptom-checker">
+            <MagneticBtn
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-4 rounded-2xl font-bold shadow-xl cursor-pointer relative overflow-hidden group"
             >
-              🩺
-            </motion.div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-black text-white mb-3"
-              style={{ fontFamily: "'Georgia', serif" }}
-            >
-              Not Sure Which Department?
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-white/40 max-w-md mx-auto text-sm mb-8"
-            >
-              Use our intelligent symptom checker to find the right specialist for your needs
-            </motion.p>
-
-            <Link to="/symptom-checker">
-              <MagneticBtn
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-4 rounded-2xl font-bold shadow-xl cursor-pointer relative overflow-hidden group"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  🩺 Symptom Checker
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    →
-                  </motion.span>
-                </span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600"
-                  initial={{ x: "100%" }}
-                  whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </MagneticBtn>
-            </Link>
-          </div>
-        </motion.div>
-      </div>
+              <span className="relative z-10 flex items-center gap-2">
+                🩺 Symptom Checker
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  →
+                </motion.span>
+              </span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600"
+                initial={{ x: "100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </MagneticBtn>
+          </Link>
+        </div>
+      </motion.div>
     </div>
-  );
+  </div>
+);
 }

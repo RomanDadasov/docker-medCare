@@ -3,7 +3,7 @@ import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { getTodayQueue } from "../../api/queueApi";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://${import.meta.env.VITE_API_URL}";
+const API_URL = `${import.meta.env.VITE_API_URL}";
 
 const QueueDisplay = () => {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ const QueueDisplay = () => {
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()
-      .withUrl(`${API_URL}/hubs/queue`)
+      .withUrl(`${ API_URL }/hubs/queue`)
       .withAutomaticReconnect()
       .configureLogging(LogLevel.None)
       .build();
@@ -37,7 +37,7 @@ const QueueDisplay = () => {
 
     connection.on("CallPatient", (data) => {
       setCalling(data);
-      speak(`${data.queueNumber} ${t("CallPatientMessage")} ${data.doctorName} ${t("Room")}`);
+      speak(`${ data.queueNumber } ${ t("CallPatientMessage") } ${ data.doctorName } ${ t("Room") } `);
       setTimeout(() => setCalling(null), 8000);
     });
 
@@ -152,14 +152,14 @@ const QueueDisplay = () => {
 
           <div className="flex-1 overflow-y-auto space-y-3">
             {queue?.waiting?.length > 0 ? queue.waiting.map((apt, i) => (
-              <div key={apt.id} className={`rounded-2xl p-4 border transition-all ${i === 0 ? "bg-amber-500/10 border-amber-500/30" : "bg-slate-800/50 border-slate-700/50"}`}>
+              <div key={apt.id} className={`rounded - 2xl p - 4 border transition - all ${ i === 0 ? "bg-amber-500/10 border-amber-500/30" : "bg-slate-800/50 border-slate-700/50" } `}>
                 <div className="flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-xl flex items-center justify-center font-black text-xl flex-shrink-0 ${i === 0 ? "bg-amber-500 text-white" : "bg-slate-700 text-slate-300"}`}>
+                  <div className={`w - 14 h - 14 rounded - xl flex items - center justify - center font - black text - xl flex - shrink - 0 ${ i === 0 ? "bg-amber-500 text-white" : "bg-slate-700 text-slate-300" } `}>
                     {apt.queueNumber}
                   </div>
                   <div className="flex-1">
-                    <p className={`font-bold text-sm ${i === 0 ? "text-amber-400" : "text-slate-300"}`}>
-                      {i === 0 ? "🔔 " + t("Next") : `${i + 1}. ${t("InQueue")}`}
+                    <p className={`font - bold text - sm ${ i === 0 ? "text-amber-400" : "text-slate-300" } `}>
+                      {i === 0 ? "🔔 " + t("Next") : `${ i + 1 }. ${ t("InQueue") } `}
                     </p>
                     <p className="text-slate-500 text-xs mt-0.5">{t("Dr")} {apt.doctorName}</p>
                     <p className="text-slate-600 text-xs">~{apt.estimatedWaitMinutes} {t("MinutesWait")}</p>
