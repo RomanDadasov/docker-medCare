@@ -11,9 +11,9 @@ export const useChat = (roomId) => {
   const [uploading, setUploading] = useState(false);
   const connectionRef = useRef(null);
   const currentRoomRef = useRef(null);
-  const roomIdRef = useRef(roomId);
+  const roomIdRef = useRef(roomId); 
 
-
+ 
   useEffect(() => {
     roomIdRef.current = roomId;
   }, [roomId]);
@@ -24,16 +24,16 @@ export const useChat = (roomId) => {
     setMessages([]);
     getChatHistory(roomId)
       .then((res) => setMessages(res.data.data))
-      .catch(() => { })
+      .catch(() => {})
       .finally(() => setLoadingHistory(false));
   }, [roomId]);
 
-
+  
   useEffect(() => {
     if (!accessToken) return;
 
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(`${import.meta.env.VITE_API_URL}/hubs/chat", {
+      .withUrl("http://localhost:5171/hubs/chat", {
         accessTokenFactory: () => accessToken,
       })
       .withAutomaticReconnect()
@@ -42,7 +42,7 @@ export const useChat = (roomId) => {
 
     connection.on("ReceiveMessage", (msg) => {
       setMessages((prev) => {
-
+       
         if (prev.some((m) => m.id === msg.id)) return prev;
         return [...prev, msg];
       });
@@ -51,7 +51,7 @@ export const useChat = (roomId) => {
     connection.onreconnected(async () => {
       setConnected(true);
       if (currentRoomRef.current) {
-        await connection.invoke("JoinRoom", currentRoomRef.current).catch(() => { });
+        await connection.invoke("JoinRoom", currentRoomRef.current).catch(() => {});
       }
     });
 
@@ -60,9 +60,9 @@ export const useChat = (roomId) => {
     connection.start()
       .then(async () => {
         setConnected(true);
-
+      
         if (roomIdRef.current) {
-          await connection.invoke("JoinRoom", roomIdRef.current).catch(() => { });
+          await connection.invoke("JoinRoom", roomIdRef.current).catch(() => {});
           currentRoomRef.current = roomIdRef.current;
         }
       })
@@ -76,7 +76,7 @@ export const useChat = (roomId) => {
     };
   }, [accessToken]);
 
-
+  
   useEffect(() => {
     if (!roomId) return;
 
@@ -84,30 +84,30 @@ export const useChat = (roomId) => {
       const conn = connectionRef.current;
       if (!conn) return;
 
-
+     
       if (conn.state !== signalR.HubConnectionState.Connected) {
-
+       
         const interval = setInterval(async () => {
           if (conn.state === signalR.HubConnectionState.Connected) {
             clearInterval(interval);
             if (currentRoomRef.current && currentRoomRef.current !== roomId) {
-              await conn.invoke("LeaveRoom", currentRoomRef.current).catch(() => { });
+              await conn.invoke("LeaveRoom", currentRoomRef.current).catch(() => {});
             }
-            await conn.invoke("JoinRoom", roomId).catch(() => { });
+            await conn.invoke("JoinRoom", roomId).catch(() => {});
             currentRoomRef.current = roomId;
           }
         }, 200);
 
-
+    
         setTimeout(() => clearInterval(interval), 5000);
         return;
       }
 
       if (currentRoomRef.current && currentRoomRef.current !== roomId) {
-        await conn.invoke("LeaveRoom", currentRoomRef.current).catch(() => { });
+        await conn.invoke("LeaveRoom", currentRoomRef.current).catch(() => {});
       }
 
-      await conn.invoke("JoinRoom", roomId).catch(() => { });
+      await conn.invoke("JoinRoom", roomId).catch(() => {});
       currentRoomRef.current = roomId;
     };
 

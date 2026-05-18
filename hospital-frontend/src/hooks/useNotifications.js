@@ -22,7 +22,7 @@ export const useNotifications = () => {
   const [notifications, setNotifications] = useState(() => loadFromStorage());
   const connectionRef = useRef(null);
 
-
+  
   useEffect(() => {
     saveToStorage(notifications);
   }, [notifications]);
@@ -31,7 +31,7 @@ export const useNotifications = () => {
     if (!accessToken) return;
 
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(`${import.meta.env.VITE_API_URL}/hubs/notification", {
+      .withUrl("http://localhost:5171/hubs/notification", {
         accessTokenFactory: () => accessToken,
       })
       .withAutomaticReconnect()
