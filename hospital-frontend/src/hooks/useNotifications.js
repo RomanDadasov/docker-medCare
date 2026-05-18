@@ -31,7 +31,7 @@ export const useNotifications = () => {
     if (!accessToken) return;
 
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("http://localhost:5171/hubs/notification", {
+      .withUrl("import.meta.env.VITE_API_URL/hubs/notification", {
         accessTokenFactory: () => accessToken,
       })
       .withAutomaticReconnect()

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://localhost:5171/api";
+const API_URL = "import.meta.env.VITE_API_URL/api";
 
 const gradients = [
   "from-emerald-500 to-teal-500",

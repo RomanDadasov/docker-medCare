@@ -3,7 +3,7 @@ import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { getTodayQueue, completeAppointment, callNext } from "../../api/queueApi";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://localhost:5171";
+const API_URL = "import.meta.env.VITE_API_URL";
 
 const DoctorPanel = () => {
   const { t } = useTranslation();

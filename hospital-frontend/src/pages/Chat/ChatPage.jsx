@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { clearChatHistory } from "../../api/chatApi";
 import { useToast } from "../../context/ToastContext";
 
-const BASE_URL = "http://localhost:5171";
+const BASE_URL = "import.meta.env.VITE_API_URL";
 
 const ROOMS = [
   { id: "general", labelKey: "General", roles: ["Admin", "Receptionist", "Doctor"], icon: "💬" },

@@ -4,7 +4,7 @@ import { getTodayQueue, addToQueue, callNext, completeAppointment } from "../../
 import { getAppointments } from "../../api/appointmentApi";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://localhost:5171";
+const API_URL = "import.meta.env.VITE_API_URL";
 
 const QueueManagement = () => {
   const { t } = useTranslation();

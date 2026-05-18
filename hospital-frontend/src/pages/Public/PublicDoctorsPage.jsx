@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://localhost:5171/api";
+const API_URL = "import.meta.env.VITE_API_URL/api";
 
 
 const SPECIALIZATION_COLORS = {
