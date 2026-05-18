@@ -4,11 +4,11 @@ import useTokenStore from "../../stores/tokenStore";
 import Input from "../../components/common/Input";
 import { useTranslation } from "react-i18next";
 
-const BASE_URL = `${import.meta.env.VITE_API_URL}";
+const BASE_URL = import.meta.env.VITE_API_URL || "";
 
 const resolveUrl = (url) => {
   if (!url) return null;
-  return url.startsWith("http") ? url : `${ BASE_URL }${ url }`;
+  return url.startsWith("http") ? url : `${BASE_URL}${url}`;
 };
 
 const ProfilePage = () => {
@@ -140,7 +140,7 @@ const ProfilePage = () => {
         </div>
 
         {profileMsg.text && (
-          <div className={`text - sm mb - 4 px - 4 py - 2.5 rounded - xl border shadow - sm ${ profileMsg.success ? "text-emerald-700 bg-emerald-50 border-emerald-100" : "text-rose-600 bg-rose-50 border-rose-100" } `}>
+          <div className={`text-sm mb-4 px-4 py-2.5 rounded-xl border shadow-sm ${profileMsg.success ? "text-emerald-700 bg-emerald-50 border-emerald-100" : "text-rose-600 bg-rose-50 border-rose-100"}`}>
             {profileMsg.text}
           </div>
         )}
@@ -167,7 +167,7 @@ const ProfilePage = () => {
         <h3 className="font-bold text-lg text-slate-800 mb-4">{t("ChangePassword")}</h3>
 
         {passMsg.text && (
-          <div className={`text - sm mb - 4 px - 4 py - 2.5 rounded - xl border shadow - sm ${ passMsg.success ? "text-emerald-700 bg-emerald-50 border-emerald-100" : "text-rose-600 bg-rose-50 border-rose-100" } `}>
+          <div className={`text-sm mb-4 px-4 py-2.5 rounded-xl border shadow-sm ${passMsg.success ? "text-emerald-700 bg-emerald-50 border-emerald-100" : "text-rose-600 bg-rose-50 border-rose-100"}`}>
             {passMsg.text}
           </div>
         )}
