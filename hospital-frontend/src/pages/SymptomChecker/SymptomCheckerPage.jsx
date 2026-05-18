@@ -3,8 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 const bodyImage = "/src/assets/img/human-body-frontal.jpg";
-const API_URL = `${import.meta.env.VITE_API_URL}/api";
-
+const API_URL = `${import.meta.env.VITE_API_URL}/api`;
 const organs = [
   {
     id: "head", labelKey: "Head", emoji: "🧠",
@@ -136,221 +135,221 @@ const AppointmentModal = ({ organ, severity, doctors, onClose }) => {
     if (!form.patientName.trim() || !form.patientPhone.trim()) { setError(t("NamePhoneRequired")); return; }
     setLoading(true); setError("");
     try {
-      const res = await fetch(`${ API_URL }/appointment-requests`, {
-method: "POST",
-  headers: { "Content-Type": "application/json" },
-body: JSON.stringify({
-  patientName: form.patientName,
-  patientPhone: form.patientPhone,
-  message: form.message,
-  doctorName: selectedDoctor?.fullName || "",
-  doctorSpecialization: selectedDoctor?.specialization || "",
-  bodyRegion: t(organ.labelKey),
-  severity,
-}),
+      const res = await fetch(`${API_URL}/appointment-requests`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          patientName: form.patientName,
+          patientPhone: form.patientPhone,
+          message: form.message,
+          doctorName: selectedDoctor?.fullName || "",
+          doctorSpecialization: selectedDoctor?.specialization || "",
+          bodyRegion: t(organ.labelKey),
+          severity,
+        }),
       });
-if (res.ok) setSuccess(true);
-else setError(t("ErrorOccurred"));
+      if (res.ok) setSuccess(true);
+      else setError(t("ErrorOccurred"));
     } catch { setError(t("ConnectionError")); }
-finally { setLoading(false); }
+    finally { setLoading(false); }
   };
 
-const cfg = severityConfig[severity];
+  const cfg = severityConfig[severity];
 
-return (
-  <AnimatePresence>
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-    >
+  return (
+    <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="absolute inset-0 bg-black/80 backdrop-blur-md"
-        onClick={onClose}
-      />
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="relative w-full max-w-md overflow-hidden rounded-3xl"
-        style={{
-          background: "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(2,26,26,0.98))",
-          border: "1px solid rgba(20,184,166,0.2)",
-          boxShadow: "0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(20,184,166,0.05)"
-        }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4"
       >
-        {/* Top Color Bar */}
-        <div className={`h-1 w-full bg-gradient-to-r ${cfg.color}`} />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="absolute inset-0 bg-black/80 backdrop-blur-md"
+          onClick={onClose}
+        />
 
-        {/* Header */}
-        <div className="px-6 py-4 flex items-center justify-between border-b border-white/5">
-          <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${cfg.color} flex items-center justify-center text-xl shadow-lg ${cfg.glow}`}>
-              {organ.emoji}
-            </div>
-            <div>
-              <p className="text-white font-bold text-sm">{t(organ.labelKey)} — {t("Appointment")}</p>
-              <p className={`text-xs font-semibold ${cfg.text}`}>{cfg.icon} {t(cfg.labelKey)} {t("Severity")}</p>
-            </div>
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.1, rotate: 90 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={onClose}
-            className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
-          </motion.button>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          className="relative w-full max-w-md overflow-hidden rounded-3xl"
+          style={{
+            background: "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(2,26,26,0.98))",
+            border: "1px solid rgba(20,184,166,0.2)",
+            boxShadow: "0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(20,184,166,0.05)"
+          }}
+        >
+          {/* Top Color Bar */}
+          <div className={`h-1 w-full bg-gradient-to-r ${cfg.color}`} />
 
-        {success ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="px-6 py-14 text-center"
-          >
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 0.5 }}
-              className="text-6xl mb-5"
-            >✅</motion.div>
-            <p className="text-white font-black text-xl mb-2">{t("RequestAccepted")}</p>
-            <p className="text-slate-400 text-sm mb-8 leading-relaxed">{t("RequestAcceptedDesc")}</p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onClose}
-              className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-teal-500/20"
-            >
-              {t("Close")}
-            </motion.button>
-          </motion.div>
-        ) : (
-          <div className="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto">
-            {doctors.length > 0 ? (
+          {/* Header */}
+          <div className="px-6 py-4 flex items-center justify-between border-b border-white/5">
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${cfg.color} flex items-center justify-center text-xl shadow-lg ${cfg.glow}`}>
+                {organ.emoji}
+              </div>
               <div>
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-3">{t("SelectDoctor")}</p>
-                <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
-                  {doctors.map((doc) => (
-                    <motion.button
-                      key={doc.id}
-                      whileHover={{ x: 4 }}
-                      onClick={() => setSelectedDoctor(doc)}
-                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-left ${selectedDoctor?.id === doc.id
-                        ? "bg-teal-500/15 border-teal-500/50"
-                        : "bg-white/3 border-white/8 hover:border-white/15"
-                        }`}
-                    >
-                      {doc.profileImageUrl ? (
-                        <img src={doc.profileImageUrl} alt={doc.fullName} className="w-10 h-10 rounded-xl object-cover shrink-0 ring-2 ring-teal-500/30" />
-                      ) : (
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-600 flex items-center justify-center text-white font-black text-sm shrink-0">
-                          {doc.fullName?.[0]}
-                        </div>
-                      )}
-                      <div className="flex-1">
-                        <p className="text-sm font-bold text-white">{doc.fullName}</p>
-                        <p className="text-xs text-teal-400 font-medium">{doc.specialization}</p>
-                      </div>
-                      {selectedDoctor?.id === doc.id && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center shrink-0"
-                        >
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="white" strokeWidth="2.5" strokeLinecap="round" /></svg>
-                        </motion.div>
-                      )}
-                    </motion.button>
-                  ))}
-                </div>
+                <p className="text-white font-bold text-sm">{t(organ.labelKey)} — {t("Appointment")}</p>
+                <p className={`text-xs font-semibold ${cfg.text}`}>{cfg.icon} {t(cfg.labelKey)} {t("Severity")}</p>
               </div>
-            ) : (
-              <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl px-4 py-3 flex items-start gap-3">
-                <span className="text-amber-400 text-lg shrink-0">⚠️</span>
-                <p className="text-amber-300/80 text-xs leading-relaxed font-medium">{t("NoDoctorsForRegion")}</p>
-              </div>
-            )}
-
-            <div className="space-y-2.5">
-              {[
-                { field: "patientName", placeholderKey: "FullName", type: "text" },
-                { field: "patientPhone", placeholderKey: "PhoneNumber", type: "tel" },
-              ].map(({ field, placeholderKey, type }) => (
-                <div key={field} className="relative">
-                  <input
-                    type={type}
-                    placeholder={t(placeholderKey) + " *"}
-                    value={form[field]}
-                    onChange={(e) => setForm({ ...form, [field]: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-slate-500 outline-none transition-all"
-                    style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                    }}
-                    onFocus={(e) => e.target.style.border = "1px solid rgba(20,184,166,0.5)"}
-                    onBlur={(e) => e.target.style.border = "1px solid rgba(255,255,255,0.08)"}
-                  />
-                </div>
-              ))}
-              <textarea
-                placeholder={t("AdditionalInfo")}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                rows={3}
-                className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-slate-500 outline-none transition-all resize-none"
-                style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                }}
-                onFocus={(e) => e.target.style.border = "1px solid rgba(20,184,166,0.5)"}
-                onBlur={(e) => e.target.style.border = "1px solid rgba(255,255,255,0.08)"}
-              />
             </div>
-
-            <AnimatePresence>
-              {error && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="bg-rose-500/10 border border-rose-500/30 rounded-xl px-4 py-3 flex items-center gap-2"
-                >
-                  <span className="text-rose-400">⚠</span>
-                  <p className="text-rose-400 text-xs font-medium">{error}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
             <motion.button
-              whileHover={{ scale: 1.02, y: -1 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleSubmit}
-              disabled={loading}
-              className="w-full py-4 bg-gradient-to-r from-teal-500 to-emerald-500 disabled:opacity-50 text-white font-black rounded-xl shadow-xl shadow-teal-500/25 flex items-center justify-center gap-2"
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={onClose}
+              className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all"
             >
-              {loading ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  {t("Sending")}
-                </>
-              ) : (
-                <>📅 {t("SendAppointmentRequest")}</>
-              )}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
             </motion.button>
-
-            <p className="text-xs text-slate-600 text-center pb-1">{t("ReceptionistContact")}</p>
           </div>
-        )}
+
+          {success ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="px-6 py-14 text-center"
+            >
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 0.5 }}
+                className="text-6xl mb-5"
+              >✅</motion.div>
+              <p className="text-white font-black text-xl mb-2">{t("RequestAccepted")}</p>
+              <p className="text-slate-400 text-sm mb-8 leading-relaxed">{t("RequestAcceptedDesc")}</p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={onClose}
+                className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-teal-500/20"
+              >
+                {t("Close")}
+              </motion.button>
+            </motion.div>
+          ) : (
+            <div className="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto">
+              {doctors.length > 0 ? (
+                <div>
+                  <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-3">{t("SelectDoctor")}</p>
+                  <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+                    {doctors.map((doc) => (
+                      <motion.button
+                        key={doc.id}
+                        whileHover={{ x: 4 }}
+                        onClick={() => setSelectedDoctor(doc)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-left ${selectedDoctor?.id === doc.id
+                          ? "bg-teal-500/15 border-teal-500/50"
+                          : "bg-white/3 border-white/8 hover:border-white/15"
+                          }`}
+                      >
+                        {doc.profileImageUrl ? (
+                          <img src={doc.profileImageUrl} alt={doc.fullName} className="w-10 h-10 rounded-xl object-cover shrink-0 ring-2 ring-teal-500/30" />
+                        ) : (
+                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-600 flex items-center justify-center text-white font-black text-sm shrink-0">
+                            {doc.fullName?.[0]}
+                          </div>
+                        )}
+                        <div className="flex-1">
+                          <p className="text-sm font-bold text-white">{doc.fullName}</p>
+                          <p className="text-xs text-teal-400 font-medium">{doc.specialization}</p>
+                        </div>
+                        {selectedDoctor?.id === doc.id && (
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center shrink-0"
+                          >
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="white" strokeWidth="2.5" strokeLinecap="round" /></svg>
+                          </motion.div>
+                        )}
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl px-4 py-3 flex items-start gap-3">
+                  <span className="text-amber-400 text-lg shrink-0">⚠️</span>
+                  <p className="text-amber-300/80 text-xs leading-relaxed font-medium">{t("NoDoctorsForRegion")}</p>
+                </div>
+              )}
+
+              <div className="space-y-2.5">
+                {[
+                  { field: "patientName", placeholderKey: "FullName", type: "text" },
+                  { field: "patientPhone", placeholderKey: "PhoneNumber", type: "tel" },
+                ].map(({ field, placeholderKey, type }) => (
+                  <div key={field} className="relative">
+                    <input
+                      type={type}
+                      placeholder={t(placeholderKey) + " *"}
+                      value={form[field]}
+                      onChange={(e) => setForm({ ...form, [field]: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-slate-500 outline-none transition-all"
+                      style={{
+                        background: "rgba(255,255,255,0.04)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                      }}
+                      onFocus={(e) => e.target.style.border = "1px solid rgba(20,184,166,0.5)"}
+                      onBlur={(e) => e.target.style.border = "1px solid rgba(255,255,255,0.08)"}
+                    />
+                  </div>
+                ))}
+                <textarea
+                  placeholder={t("AdditionalInfo")}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  rows={3}
+                  className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-slate-500 outline-none transition-all resize-none"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                  onFocus={(e) => e.target.style.border = "1px solid rgba(20,184,166,0.5)"}
+                  onBlur={(e) => e.target.style.border = "1px solid rgba(255,255,255,0.08)"}
+                />
+              </div>
+
+              <AnimatePresence>
+                {error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="bg-rose-500/10 border border-rose-500/30 rounded-xl px-4 py-3 flex items-center gap-2"
+                  >
+                    <span className="text-rose-400">⚠</span>
+                    <p className="text-rose-400 text-xs font-medium">{error}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <motion.button
+                whileHover={{ scale: 1.02, y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleSubmit}
+                disabled={loading}
+                className="w-full py-4 bg-gradient-to-r from-teal-500 to-emerald-500 disabled:opacity-50 text-white font-black rounded-xl shadow-xl shadow-teal-500/25 flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    {t("Sending")}
+                  </>
+                ) : (
+                  <>📅 {t("SendAppointmentRequest")}</>
+                )}
+              </motion.button>
+
+              <p className="text-xs text-slate-600 text-center pb-1">{t("ReceptionistContact")}</p>
+            </div>
+          )}
+        </motion.div>
       </motion.div>
-    </motion.div>
-  </AnimatePresence>
-);
+    </AnimatePresence>
+  );
 };
 
 export default function SymptomCheckerPage() {
