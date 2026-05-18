@@ -4,7 +4,7 @@ import { getTodayQueue, addToQueue, callNext, completeAppointment } from "../../
 import { getAppointments } from "../../api/appointmentApi";
 import { useTranslation } from "react-i18next";
 
-const API_URL = `${import.meta.env.VITE_API_URL}";
+const API_URL = "http://localhost:5171";
 
 const QueueManagement = () => {
   const { t } = useTranslation();
@@ -18,22 +18,22 @@ const QueueManagement = () => {
     setQueue(res.data.data);
   };
 
-  const fetchPaidAppointments = async () => {
+ const fetchPaidAppointments = async () => {
 
-    const res = await getAppointments({
-      pageSize: 100,
-      status: "Confirmed",
-    });
-
-    console.log("Confirmed appointments (all dates):", res.data.data.items);
-
-    const items = (res.data.data.items || []).filter(
-      (a) => a.paymentStatus === "Paid" && !a.queueNumber
-    );
-
-    console.log("Paid + Confirmed (no queue):", items);
-    setPaidAppointments(items);
-  };
+  const res = await getAppointments({
+    pageSize: 100,
+    status: "Confirmed",
+  });
+  
+  console.log("Confirmed appointments (all dates):", res.data.data.items);
+  
+  const items = (res.data.data.items || []).filter(
+    (a) => a.paymentStatus === "Paid" && !a.queueNumber
+  );
+  
+  console.log("Paid + Confirmed (no queue):", items);
+  setPaidAppointments(items);
+};
 
   useEffect(() => {
     fetchQueue();
@@ -42,7 +42,7 @@ const QueueManagement = () => {
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()
-      .withUrl(`${ API_URL }/hubs/queue`)
+      .withUrl(`${API_URL}/hubs/queue`)
       .withAutomaticReconnect()
       .configureLogging(LogLevel.None)
       .build();
@@ -59,7 +59,7 @@ const QueueManagement = () => {
 
   const handleAction = async (id, action) => {
     setLoading((p) => ({ ...p, [id]: true }));
-    try { await action(id); } catch { }
+    try { await action(id); } catch {}
     finally { setLoading((p) => ({ ...p, [id]: false })); }
   };
 
@@ -84,8 +84,8 @@ const QueueManagement = () => {
           { label: t("InProgress"), value: queue?.current ? 1 : 0, color: "text-emerald-600", bg: "bg-emerald-50" },
           { label: t("Completed"), value: queue?.completed?.length || 0, color: "text-sky-600", bg: "bg-sky-50" },
         ].map((s) => (
-          <div key={s.label} className={`${ s.bg } rounded - 2xl p - 4 border border - gray - 100 shadow - sm`}>
-            <p className={`text - 3xl font - black ${ s.color } `}>{s.value}</p>
+          <div key={s.label} className={`${s.bg} rounded-2xl p-4 border border-gray-100 shadow-sm`}>
+            <p className={`text-3xl font-black ${s.color}`}>{s.value}</p>
             <p className="text-slate-500 text-xs mt-1">{s.label}</p>
           </div>
         ))}
@@ -121,14 +121,14 @@ const QueueManagement = () => {
           </div>
         </div>
 
-
+    
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
           <h2 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
             <span className="w-6 h-6 bg-emerald-100 rounded-lg flex items-center justify-center text-xs">📋</span>
             {t("QueueList")}
           </h2>
 
-
+       
           {queue?.current && (
             <div className="mb-4 p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl">
               <div className="flex items-center justify-between">
@@ -152,18 +152,18 @@ const QueueManagement = () => {
             </div>
           )}
 
-
+        
           <div className="space-y-2 max-h-72 overflow-y-auto">
             {queue?.waiting?.length === 0 && !queue?.current && (
               <p className="text-slate-400 text-sm text-center py-8">{t("EmptyQueue")}</p>
             )}
             {queue?.waiting?.map((apt, i) => (
-              <div key={apt.id} className={`flex items - center gap - 3 p - 3 rounded - xl border ${ i === 0 ? "bg-amber-50 border-amber-200" : "bg-slate-50 border-slate-100" } `}>
-                <div className={`w - 10 h - 10 rounded - xl flex items - center justify - center font - bold text - sm shrink - 0 ${ i === 0 ? "bg-amber-500 text-white" : "bg-slate-200 text-slate-600" } `}>
+              <div key={apt.id} className={`flex items-center gap-3 p-3 rounded-xl border ${i === 0 ? "bg-amber-50 border-amber-200" : "bg-slate-50 border-slate-100"}`}>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 ${i === 0 ? "bg-amber-500 text-white" : "bg-slate-200 text-slate-600"}`}>
                   {apt.queueNumber}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-slate-600">{i === 0 ? "⏭ " + t("Next") : `${ i + 1 }. ${ t("InQueue") } `}</p>
+                  <p className="text-xs font-semibold text-slate-600">{i === 0 ? "⏭ " + t("Next") : `${i + 1}. ${t("InQueue")}`}</p>
                   <p className="text-xs text-slate-400 truncate">{t("Dr")} {apt.doctorName}</p>
                   <p className="text-xs text-slate-300">~{apt.estimatedWaitMinutes} {t("Minutes")}</p>
                 </div>
@@ -179,7 +179,7 @@ const QueueManagement = () => {
             ))}
           </div>
 
-
+         
           {queue?.completed?.length > 0 && (
             <div className="mt-4 pt-4 border-t border-gray-100">
               <p className="text-xs text-slate-400 font-semibold mb-2 uppercase tracking-wider">{t("Completed")}</p>
