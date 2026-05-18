@@ -92,7 +92,7 @@ jobs:
                 networks:
                   - app-network
                 healthcheck:
-                  test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Password123' -Q 'SELECT 1' -b -o /dev/null -C"]
+                  test: ["CMD-SHELL", "cat /var/opt/mssql/log/errorlog | grep -q 'SQL Server is now ready for client connections' || exit 1"]
                   interval: 15s
                   timeout: 15s
                   retries: 25
