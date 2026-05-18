@@ -242,8 +242,8 @@ const AppointmentModal = ({ organ, severity, doctors, onClose }) => {
                         whileHover={{ x: 4 }}
                         onClick={() => setSelectedDoctor(doc)}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-left ${selectedDoctor?.id === doc.id
-                            ? "bg-teal-500/15 border-teal-500/50"
-                            : "bg-white/3 border-white/8 hover:border-white/15"
+                          ? "bg-teal-500/15 border-teal-500/50"
+                          : "bg-white/3 border-white/8 hover:border-white/15"
                           }`}
                       >
                         {doc.profileImageUrl ? (
@@ -474,8 +474,8 @@ export default function SymptomCheckerPage() {
           ].map((s, i) => (
             <div key={s.n} className="flex items-center gap-3">
               <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${step >= s.n
-                  ? "bg-teal-500/20 border border-teal-500/40 text-teal-300"
-                  : "bg-white/3 border border-white/8 text-slate-600"
+                ? "bg-teal-500/20 border border-teal-500/40 text-teal-300"
+                : "bg-white/3 border border-white/8 text-slate-600"
                 }`}>
                 <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-black ${step >= s.n ? "bg-teal-500 text-white" : "bg-white/10 text-slate-500"}`}>
                   {step > s.n ? "✓" : s.n}
@@ -605,8 +605,8 @@ export default function SymptomCheckerPage() {
                   whileTap={{ scale: 0.97 }}
                   onClick={() => handleOrganSelect(organ)}
                   className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all border ${selected?.id === organ.id
-                      ? "bg-teal-500/15 border-teal-500/40 text-teal-300"
-                      : "bg-white/2 border-white/6 text-slate-400 hover:border-white/15 hover:text-slate-200"
+                    ? "bg-teal-500/15 border-teal-500/40 text-teal-300"
+                    : "bg-white/2 border-white/6 text-slate-400 hover:border-white/15 hover:text-slate-200"
                     }`}
                 >
                   <span className="text-base">{organ.emoji}</span>
@@ -690,8 +690,8 @@ export default function SymptomCheckerPage() {
                           whileTap={{ scale: 0.97 }}
                           onClick={() => handleSeveritySelect(key)}
                           className={`relative py-4 rounded-2xl text-sm font-black border transition-all overflow-hidden ${severity === key
-                              ? `bg-gradient-to-br ${val.color} border-transparent text-white shadow-xl ${val.glow}`
-                              : `bg-white/3 ${val.border} ${val.text} hover:bg-white/6`
+                            ? `bg-gradient-to-br ${val.color} border-transparent text-white shadow-xl ${val.glow}`
+                            : `bg-white/3 ${val.border} ${val.text} hover:bg-white/6`
                             }`}
                         >
                           {severity === key && (
