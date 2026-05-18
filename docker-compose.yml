@@ -6,9 +6,10 @@ services:
     image: roman913/hospital-frontend:latest
     restart: always
     ports:
-      - "3000:80"
+      - "3000:5173"
     depends_on:
-      - api
+      api:
+        condition: service_started
     networks:
       - app-network
 
@@ -24,7 +25,8 @@ services:
       - ConnectionStrings__HospitalDBConnectionString=Server=db,1433;Database=HospitalManagementDB;User ID=sa;Password=YourStrong!Password123;TrustServerCertificate=True;
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - app-network
 
@@ -41,6 +43,12 @@ services:
       - sql_data:/var/opt/mssql
     networks:
       - app-network
+    healthcheck:
+      test: [ "CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Password123' -Q 'SELECT 1' -b -o /dev/null -C" ]
+      interval: 15s
+      timeout: 15s
+      retries: 25
+      start_period: 60s
 
 volumes:
   sql_data:

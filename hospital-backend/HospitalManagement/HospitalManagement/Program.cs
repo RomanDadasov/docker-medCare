@@ -53,7 +53,6 @@ app.MapHub<AppointmentRequestHub>("/hubs/appointment-requests");
 app.MapHub<ChatHub>("/hubs/chat");
 app.MapHub<QueueHub>("/hubs/queue");
 
-// DB migration - avtomatik database yarat
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
