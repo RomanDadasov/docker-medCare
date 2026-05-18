@@ -2,7 +2,7 @@ import axios from "axios";
 import useTokenStore from "../stores/tokenStore";
 
 const api = axios.create({
-  baseURL: "http://${import.meta.env.VITE_API_URL}/api",
+  baseURL: `${import.meta.env.VITE_API_URL}/api`,
   headers: { "Content-Type": "application/json" },
 });
 
@@ -41,7 +41,7 @@ export const refreshTokens = async () => {
     if (!refreshToken) throw new Error("No refresh token");
 
     const { data } = await axios.post(
-      "http://${import.meta.env.VITE_API_URL}/api/auth/refresh",
+      `${import.meta.env.VITE_API_URL}/api/auth/refresh`,
       { refreshToken }
     );
 
