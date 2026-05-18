@@ -33,7 +33,7 @@ export const useChat = (roomId) => {
     if (!accessToken) return;
 
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("import.meta.env.VITE_API_URL/hubs/chat", {
+      .withUrl(`${import.meta.env.VITE_API_URL}/hubs/chat`, {
         accessTokenFactory: () => accessToken,
       })
       .withAutomaticReconnect()

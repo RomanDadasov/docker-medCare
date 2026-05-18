@@ -10,7 +10,7 @@ export const useAppointmentRequests = (onNewRequest) => {
     if (!accessToken || (role !== "Receptionist" && role !== "Admin")) return;
 
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("import.meta.env.VITE_API_URL/hubs/appointment-requests", {
+      .withUrl(`${import.meta.env.VITE_API_URL}/hubs/appointment-requests`, {
         accessTokenFactory: () => accessToken,
       })
       .withAutomaticReconnect()
