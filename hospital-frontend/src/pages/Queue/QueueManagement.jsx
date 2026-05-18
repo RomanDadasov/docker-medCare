@@ -4,7 +4,7 @@ import { getTodayQueue, addToQueue, callNext, completeAppointment } from "../../
 import { getAppointments } from "../../api/appointmentApi";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://localhost:5171";
+const API_URL = "http://${import.meta.env.VITE_API_URL}";
 
 const QueueManagement = () => {
   const { t } = useTranslation();
@@ -18,22 +18,22 @@ const QueueManagement = () => {
     setQueue(res.data.data);
   };
 
- const fetchPaidAppointments = async () => {
+  const fetchPaidAppointments = async () => {
 
-  const res = await getAppointments({
-    pageSize: 100,
-    status: "Confirmed",
-  });
-  
-  console.log("Confirmed appointments (all dates):", res.data.data.items);
-  
-  const items = (res.data.data.items || []).filter(
-    (a) => a.paymentStatus === "Paid" && !a.queueNumber
-  );
-  
-  console.log("Paid + Confirmed (no queue):", items);
-  setPaidAppointments(items);
-};
+    const res = await getAppointments({
+      pageSize: 100,
+      status: "Confirmed",
+    });
+
+    console.log("Confirmed appointments (all dates):", res.data.data.items);
+
+    const items = (res.data.data.items || []).filter(
+      (a) => a.paymentStatus === "Paid" && !a.queueNumber
+    );
+
+    console.log("Paid + Confirmed (no queue):", items);
+    setPaidAppointments(items);
+  };
 
   useEffect(() => {
     fetchQueue();
@@ -59,7 +59,7 @@ const QueueManagement = () => {
 
   const handleAction = async (id, action) => {
     setLoading((p) => ({ ...p, [id]: true }));
-    try { await action(id); } catch {}
+    try { await action(id); } catch { }
     finally { setLoading((p) => ({ ...p, [id]: false })); }
   };
 
@@ -121,14 +121,14 @@ const QueueManagement = () => {
           </div>
         </div>
 
-    
+
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
           <h2 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
             <span className="w-6 h-6 bg-emerald-100 rounded-lg flex items-center justify-center text-xs">📋</span>
             {t("QueueList")}
           </h2>
 
-       
+
           {queue?.current && (
             <div className="mb-4 p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl">
               <div className="flex items-center justify-between">
@@ -152,7 +152,7 @@ const QueueManagement = () => {
             </div>
           )}
 
-        
+
           <div className="space-y-2 max-h-72 overflow-y-auto">
             {queue?.waiting?.length === 0 && !queue?.current && (
               <p className="text-slate-400 text-sm text-center py-8">{t("EmptyQueue")}</p>
@@ -179,7 +179,7 @@ const QueueManagement = () => {
             ))}
           </div>
 
-         
+
           {queue?.completed?.length > 0 && (
             <div className="mt-4 pt-4 border-t border-gray-100">
               <p className="text-xs text-slate-400 font-semibold mb-2 uppercase tracking-wider">{t("Completed")}</p>

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 const bodyImage = "/src/assets/img/human-body-frontal.jpg";
-const API_URL = "http://localhost:5171/api";
+const API_URL = "http://${import.meta.env.VITE_API_URL}/api";
 
 const organs = [
   {
@@ -11,9 +11,9 @@ const organs = [
     top: "3%", left: "38%", width: "24%", height: "12%",
     specializations: ["Neurologist", "Neurosurgeon", "Neurology"],
     conditions: {
-      mild:     ["MildHeadache", "Fatigue", "Insomnia"],
+      mild: ["MildHeadache", "Fatigue", "Insomnia"],
       moderate: ["Migraine", "Sinusitis", "Hypertension"],
-      severe:   ["Stroke", "Meningitis", "BrainTumor"],
+      severe: ["Stroke", "Meningitis", "BrainTumor"],
     },
   },
   {
@@ -21,9 +21,9 @@ const organs = [
     top: "14.5%", left: "40%", width: "20%", height: "5%",
     specializations: ["Orthopedist", "Endocrinologist", "Traumatologist"],
     conditions: {
-      mild:     ["MuscleTension", "BadSleep", "Stress"],
+      mild: ["MuscleTension", "BadSleep", "Stress"],
       moderate: ["CervicalOsteochondrosis", "ThyroidProblem", "LymphSwelling"],
-      severe:   ["NeckHernia", "ThyroidCancer", "CarotidStenosis"],
+      severe: ["NeckHernia", "ThyroidCancer", "CarotidStenosis"],
     },
   },
   {
@@ -31,9 +31,9 @@ const organs = [
     top: "19%", left: "33%", width: "18%", height: "10%",
     specializations: ["Cardiologist", "CardiacSurgeon", "Cardiology"],
     conditions: {
-      mild:     ["Stress", "ExcessCoffee", "Anxiety"],
+      mild: ["Stress", "ExcessCoffee", "Anxiety"],
       moderate: ["Arrhythmia", "Hypertension", "Angina"],
-      severe:   ["MyocardialInfarction", "HeartFailure", "Pericarditis"],
+      severe: ["MyocardialInfarction", "HeartFailure", "Pericarditis"],
     },
   },
   {
@@ -41,9 +41,9 @@ const organs = [
     top: "19%", left: "49%", width: "18%", height: "10%",
     specializations: ["Pulmonologist", "ThoracicSurgeon", "Pulmonology", "Allergist"],
     conditions: {
-      mild:     ["Cold", "Allergy", "Exercise"],
+      mild: ["Cold", "Allergy", "Exercise"],
       moderate: ["Bronchitis", "Asthma", "Pneumonia"],
-      severe:   ["COPD", "PulmonaryEmbolism", "LungCancer"],
+      severe: ["COPD", "PulmonaryEmbolism", "LungCancer"],
     },
   },
   {
@@ -51,9 +51,9 @@ const organs = [
     top: "31%", left: "36%", width: "28%", height: "10%",
     specializations: ["Gastroenterologist", "GeneralSurgeon", "Gastroenterology"],
     conditions: {
-      mild:     ["Indigestion", "Gas", "Stress"],
+      mild: ["Indigestion", "Gas", "Stress"],
       moderate: ["Gastritis", "Reflux", "IBS"],
-      severe:   ["StomachUlcer", "Pancreatitis", "Appendicitis"],
+      severe: ["StomachUlcer", "Pancreatitis", "Appendicitis"],
     },
   },
   {
@@ -61,9 +61,9 @@ const organs = [
     top: "42%", left: "36%", width: "28%", height: "8%",
     specializations: ["Urologist", "Nephrologist", "Gynecologist", "Urology"],
     conditions: {
-      mild:     ["Dehydration", "UTIStart", "MusclePain"],
+      mild: ["Dehydration", "UTIStart", "MusclePain"],
       moderate: ["KidneyStone", "Cystitis", "Pyelonephritis"],
-      severe:   ["KidneyFailure", "KidneyCancer", "Glomerulonephritis"],
+      severe: ["KidneyFailure", "KidneyCancer", "Glomerulonephritis"],
     },
   },
   {
@@ -71,9 +71,9 @@ const organs = [
     top: "20%", left: "14%", width: "18%", height: "22%",
     specializations: ["Orthopedist", "Traumatologist", "Physiotherapist", "OrthopedicSurgeon"],
     conditions: {
-      mild:     ["MuscleStrain", "Overload", "Sprain"],
+      mild: ["MuscleStrain", "Overload", "Sprain"],
       moderate: ["TennisElbow", "CarpalTunnel", "Tendonitis"],
-      severe:   ["Fracture", "RotatorCuffTear", "NerveCompression"],
+      severe: ["Fracture", "RotatorCuffTear", "NerveCompression"],
     },
   },
   {
@@ -81,9 +81,9 @@ const organs = [
     top: "20%", left: "68%", width: "18%", height: "22%",
     specializations: ["Orthopedist", "Traumatologist", "Physiotherapist", "OrthopedicSurgeon"],
     conditions: {
-      mild:     ["MuscleStrain", "Overload", "Sprain"],
+      mild: ["MuscleStrain", "Overload", "Sprain"],
       moderate: ["TennisElbow", "CarpalTunnel", "Tendonitis"],
-      severe:   ["Fracture", "RotatorCuffTear", "NerveCompression"],
+      severe: ["Fracture", "RotatorCuffTear", "NerveCompression"],
     },
   },
   {
@@ -91,9 +91,9 @@ const organs = [
     top: "52%", left: "30%", width: "20%", height: "38%",
     specializations: ["Orthopedist", "VascularSurgeon", "Phlebologist", "Traumatologist"],
     conditions: {
-      mild:     ["MuscleCramp", "Fatigue", "Inactivity"],
+      mild: ["MuscleCramp", "Fatigue", "Inactivity"],
       moderate: ["VaricoseVeins", "Sciatica", "MeniscusProblem"],
-      severe:   ["DVT", "ArterialOcclusion", "BoneFracture"],
+      severe: ["DVT", "ArterialOcclusion", "BoneFracture"],
     },
   },
   {
@@ -101,17 +101,17 @@ const organs = [
     top: "52%", left: "50%", width: "20%", height: "38%",
     specializations: ["Orthopedist", "VascularSurgeon", "Phlebologist", "Traumatologist"],
     conditions: {
-      mild:     ["MuscleCramp", "Fatigue", "Inactivity"],
+      mild: ["MuscleCramp", "Fatigue", "Inactivity"],
       moderate: ["VaricoseVeins", "Sciatica", "MeniscusProblem"],
-      severe:   ["DVT", "ArterialOcclusion", "BoneFracture"],
+      severe: ["DVT", "ArterialOcclusion", "BoneFracture"],
     },
   },
 ];
 
 const severityConfig = {
-  mild:     { labelKey: "Mild",   icon: "🟢", color: "from-green-500 to-emerald-500",  border: "border-green-500/40",  text: "text-green-400",  bg: "bg-green-500/10",  glow: "shadow-green-500/20" },
-  moderate: { labelKey: "Moderate", icon: "🟡", color: "from-amber-500 to-orange-500",   border: "border-amber-500/40",  text: "text-amber-400",  bg: "bg-amber-500/10",  glow: "shadow-amber-500/20" },
-  severe:   { labelKey: "Severe", icon: "🔴", color: "from-rose-500 to-red-500",       border: "border-rose-500/40",   text: "text-rose-400",   bg: "bg-rose-500/10",   glow: "shadow-rose-500/20" },
+  mild: { labelKey: "Mild", icon: "🟢", color: "from-green-500 to-emerald-500", border: "border-green-500/40", text: "text-green-400", bg: "bg-green-500/10", glow: "shadow-green-500/20" },
+  moderate: { labelKey: "Moderate", icon: "🟡", color: "from-amber-500 to-orange-500", border: "border-amber-500/40", text: "text-amber-400", bg: "bg-amber-500/10", glow: "shadow-amber-500/20" },
+  severe: { labelKey: "Severe", icon: "🔴", color: "from-rose-500 to-red-500", border: "border-rose-500/40", text: "text-rose-400", bg: "bg-rose-500/10", glow: "shadow-rose-500/20" },
 };
 
 const filterDoctorsForOrgan = (allDoctors, organ) => {
@@ -185,7 +185,7 @@ const AppointmentModal = ({ organ, severity, doctors, onClose }) => {
           }}
         >
           {/* Top Color Bar */}
-          <div className={`h-1 w-full bg-gradient-to-r ${cfg.color}`}/>
+          <div className={`h-1 w-full bg-gradient-to-r ${cfg.color}`} />
 
           {/* Header */}
           <div className="px-6 py-4 flex items-center justify-between border-b border-white/5">
@@ -204,7 +204,7 @@ const AppointmentModal = ({ organ, severity, doctors, onClose }) => {
               onClick={onClose}
               className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
             </motion.button>
           </div>
 
@@ -241,14 +241,13 @@ const AppointmentModal = ({ organ, severity, doctors, onClose }) => {
                         key={doc.id}
                         whileHover={{ x: 4 }}
                         onClick={() => setSelectedDoctor(doc)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-left ${
-                          selectedDoctor?.id === doc.id
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-left ${selectedDoctor?.id === doc.id
                             ? "bg-teal-500/15 border-teal-500/50"
                             : "bg-white/3 border-white/8 hover:border-white/15"
-                        }`}
+                          }`}
                       >
                         {doc.profileImageUrl ? (
-                          <img src={doc.profileImageUrl} alt={doc.fullName} className="w-10 h-10 rounded-xl object-cover shrink-0 ring-2 ring-teal-500/30"/>
+                          <img src={doc.profileImageUrl} alt={doc.fullName} className="w-10 h-10 rounded-xl object-cover shrink-0 ring-2 ring-teal-500/30" />
                         ) : (
                           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-600 flex items-center justify-center text-white font-black text-sm shrink-0">
                             {doc.fullName?.[0]}
@@ -264,7 +263,7 @@ const AppointmentModal = ({ organ, severity, doctors, onClose }) => {
                             animate={{ scale: 1 }}
                             className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center shrink-0"
                           >
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="white" strokeWidth="2.5" strokeLinecap="round"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="white" strokeWidth="2.5" strokeLinecap="round" /></svg>
                           </motion.div>
                         )}
                       </motion.button>
@@ -337,7 +336,7 @@ const AppointmentModal = ({ organ, severity, doctors, onClose }) => {
               >
                 {loading ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"/>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     {t("Sending")}
                   </>
                 ) : (
@@ -474,18 +473,17 @@ export default function SymptomCheckerPage() {
             { n: 3, labelKey: "Result" },
           ].map((s, i) => (
             <div key={s.n} className="flex items-center gap-3">
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                step >= s.n
+              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${step >= s.n
                   ? "bg-teal-500/20 border border-teal-500/40 text-teal-300"
                   : "bg-white/3 border border-white/8 text-slate-600"
-              }`}>
+                }`}>
                 <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-black ${step >= s.n ? "bg-teal-500 text-white" : "bg-white/10 text-slate-500"}`}>
                   {step > s.n ? "✓" : s.n}
                 </span>
                 {t(s.labelKey)}
               </div>
               {i < 2 && (
-                <div className={`w-6 h-px ${step > s.n ? "bg-teal-500" : "bg-white/10"} transition-colors`}/>
+                <div className={`w-6 h-px ${step > s.n ? "bg-teal-500" : "bg-white/10"} transition-colors`} />
               )}
             </div>
           ))}
@@ -510,7 +508,7 @@ export default function SymptomCheckerPage() {
               boxShadow: "0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)"
             }}
           >
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"/>
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-teal-500/50 to-transparent" />
 
             <div className="p-5">
               <div className="flex items-center justify-between mb-4">
@@ -528,7 +526,7 @@ export default function SymptomCheckerPage() {
               </div>
 
               <div className="relative" style={{ width: 300, height: 500 }}>
-                <img src={bodyImage} alt="Human body" className="w-full h-full object-contain select-none" draggable={false}/>
+                <img src={bodyImage} alt="Human body" className="w-full h-full object-contain select-none" draggable={false} />
 
                 {organs.map((organ) => {
                   const isSelected = selected?.id === organ.id;
@@ -549,13 +547,13 @@ export default function SymptomCheckerPage() {
                         background: isSelected
                           ? "rgba(20,184,166,0.3)"
                           : isHovered
-                          ? "rgba(20,184,166,0.15)"
-                          : "rgba(255,255,255,0.03)",
+                            ? "rgba(20,184,166,0.15)"
+                            : "rgba(255,255,255,0.03)",
                         border: isSelected
                           ? "2px solid rgba(20,184,166,0.8)"
                           : isHovered
-                          ? "2px solid rgba(20,184,166,0.4)"
-                          : "2px solid rgba(255,255,255,0.06)",
+                            ? "2px solid rgba(20,184,166,0.4)"
+                            : "2px solid rgba(255,255,255,0.06)",
                         boxShadow: isSelected ? "0 0 20px rgba(20,184,166,0.4), inset 0 0 15px rgba(20,184,166,0.1)" : "none",
                         display: "flex", alignItems: "center", justifyContent: "center",
                       }}
@@ -606,11 +604,10 @@ export default function SymptomCheckerPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => handleOrganSelect(organ)}
-                  className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all border ${
-                    selected?.id === organ.id
+                  className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all border ${selected?.id === organ.id
                       ? "bg-teal-500/15 border-teal-500/40 text-teal-300"
                       : "bg-white/2 border-white/6 text-slate-400 hover:border-white/15 hover:text-slate-200"
-                  }`}
+                    }`}
                 >
                   <span className="text-base">{organ.emoji}</span>
                   <span className="truncate">{t(organ.labelKey)}</span>
@@ -659,7 +656,7 @@ export default function SymptomCheckerPage() {
                     boxShadow: "0 0 40px rgba(20,184,166,0.05)"
                   }}
                 >
-                  <div className="h-px w-full bg-gradient-to-r from-teal-500/50 via-emerald-500/50 to-transparent"/>
+                  <div className="h-px w-full bg-gradient-to-r from-teal-500/50 via-emerald-500/50 to-transparent" />
 
                   <div className="p-6">
                     <div className="flex items-center gap-4 mb-6">
@@ -680,7 +677,7 @@ export default function SymptomCheckerPage() {
                         onClick={() => { setSelected(null); setSeverity(null); setStep(1); }}
                         className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all"
                       >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
                       </motion.button>
                     </div>
 
@@ -692,11 +689,10 @@ export default function SymptomCheckerPage() {
                           whileHover={{ scale: 1.03, y: -2 }}
                           whileTap={{ scale: 0.97 }}
                           onClick={() => handleSeveritySelect(key)}
-                          className={`relative py-4 rounded-2xl text-sm font-black border transition-all overflow-hidden ${
-                            severity === key
+                          className={`relative py-4 rounded-2xl text-sm font-black border transition-all overflow-hidden ${severity === key
                               ? `bg-gradient-to-br ${val.color} border-transparent text-white shadow-xl ${val.glow}`
                               : `bg-white/3 ${val.border} ${val.text} hover:bg-white/6`
-                          }`}
+                            }`}
                         >
                           {severity === key && (
                             <motion.div
@@ -726,7 +722,7 @@ export default function SymptomCheckerPage() {
                         border: "1px solid rgba(255,255,255,0.08)",
                       }}
                     >
-                      <div className={`h-px w-full bg-gradient-to-r ${severityConfig[severity].color}`}/>
+                      <div className={`h-px w-full bg-gradient-to-r ${severityConfig[severity].color}`} />
                       <div className="p-6">
                         <div className="flex items-center justify-between mb-5">
                           <p className="text-sm font-black text-white">{t("PotentialConditions")}</p>
@@ -769,7 +765,7 @@ export default function SymptomCheckerPage() {
                         border: "1px solid rgba(255,255,255,0.08)",
                       }}
                     >
-                      <div className="h-px w-full bg-gradient-to-r from-transparent via-teal-500/40 to-transparent"/>
+                      <div className="h-px w-full bg-gradient-to-r from-transparent via-teal-500/40 to-transparent" />
                       <div className="p-6">
                         <div className="flex items-center justify-between mb-5">
                           <div className="flex items-center gap-2">
@@ -777,10 +773,10 @@ export default function SymptomCheckerPage() {
                             <p className="text-sm font-black text-white">{t("MatchingDoctors")}</p>
                           </div>
                           {doctorsLoading
-                            ? <div className="w-4 h-4 border-2 border-teal-400 border-t-transparent rounded-full animate-spin"/>
+                            ? <div className="w-4 h-4 border-2 border-teal-400 border-t-transparent rounded-full animate-spin" />
                             : <span className="text-xs text-slate-500 bg-white/5 border border-white/8 px-3 py-1 rounded-lg font-semibold">
-                                {matchedDoctors.length} {t("Doctors")}
-                              </span>
+                              {matchedDoctors.length} {t("Doctors")}
+                            </span>
                           }
                         </div>
 
@@ -799,7 +795,7 @@ export default function SymptomCheckerPage() {
                               >
                                 {doc.profileImageUrl ? (
                                   <img src={doc.profileImageUrl} alt={doc.fullName}
-                                    className="w-11 h-11 rounded-xl object-cover shrink-0 ring-2 ring-teal-500/20"/>
+                                    className="w-11 h-11 rounded-xl object-cover shrink-0 ring-2 ring-teal-500/20" />
                                 ) : (
                                   <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-600 flex items-center justify-center text-white font-black text-sm shrink-0 shadow-lg">
                                     {doc.fullName?.[0]}

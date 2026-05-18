@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://localhost:5171/api";
+const API_URL = "http://${import.meta.env.VITE_API_URL}/api";
 
 const gradients = [
   "from-emerald-500 to-teal-500",
@@ -22,7 +22,7 @@ const glowColors = [
 function MagneticBtn({ children, className, ...rest }) {
   const ref = useRef(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  
+
   const handleMouse = (e) => {
     const rect = ref.current.getBoundingClientRect();
     setPosition({
@@ -30,7 +30,7 @@ function MagneticBtn({ children, className, ...rest }) {
       y: (e.clientY - rect.top - rect.height / 2) * 0.25,
     });
   };
-  
+
   return (
     <motion.div
       ref={ref}
@@ -61,7 +61,7 @@ function FloatingOrb({ size, x, y, color, delay, duration }) {
 
 function DepartmentCard({ dept, index, gradient, glowColor }) {
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -73,7 +73,7 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
       onHoverEnd={() => setIsHovered(false)}
       className="group relative cursor-pointer h-full"
     >
-    
+
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -85,15 +85,15 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
           />
         )}
       </AnimatePresence>
-      
+
       <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden shadow-lg transition-all duration-300 h-full flex flex-col">
         {/* Image Container - Fixed Height */}
         <div className="h-48 overflow-hidden relative flex-shrink-0">
           {dept.imageUrl ? (
             <>
-              <motion.img 
-                src={dept.imageUrl} 
-                alt={dept.name} 
+              <motion.img
+                src={dept.imageUrl}
+                alt={dept.name}
                 className="w-full h-full object-cover"
                 animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
                 transition={{ duration: 0.6 }}
@@ -101,7 +101,7 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
             </>
           ) : (
-            <motion.div 
+            <motion.div
               className={`w-full h-full bg-gradient-to-br ${gradient}`}
               animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -113,14 +113,14 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
               </div>
             </motion.div>
           )}
-          
+
           {/* Dekorativ element */}
-          <motion.div 
+          <motion.div
             className="absolute top-3 right-3 w-16 h-16 rounded-full blur-2xl"
             style={{ background: glowColor }}
             animate={{ opacity: isHovered ? 0.6 : 0.2 }}
           />
-          
+
           {/* Category Badge */}
           <div className="absolute bottom-3 left-3">
             <span className="px-3 py-1 rounded-full text-xs font-medium bg-black/50 backdrop-blur-sm text-white border border-white/20">
@@ -132,7 +132,7 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
         {/* Content - Flex-grow ilə bərabər hündürlük */}
         <div className="p-5 flex-grow flex flex-col">
           <div className="flex items-start justify-between mb-2">
-            <motion.h3 
+            <motion.h3
               className="font-black text-white text-lg"
               animate={isHovered ? { x: 4 } : { x: 0 }}
             >
@@ -146,7 +146,7 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
               →
             </motion.div>
           </div>
-          
+
           {dept.description ? (
             <p className="text-white/40 text-sm leading-relaxed line-clamp-2 flex-grow">
               {dept.description}
@@ -156,16 +156,16 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
               <span className="text-lg">💫</span> Professional medical service
             </p>
           )}
-          
-         
+
+
           {dept.doctorCount > 0 && (
-            <motion.div 
+            <motion.div
               className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between"
               animate={isHovered ? { y: -2 } : { y: 0 }}
             >
               <div className="flex items-center -space-x-2">
                 {[...Array(Math.min(dept.doctorCount, 3))].map((_, i) => (
-                  <div 
+                  <div
                     key={i}
                     className="w-6 h-6 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 border-2 border-slate-800 flex items-center justify-center text-[10px]"
                   >
@@ -185,9 +185,9 @@ function DepartmentCard({ dept, index, gradient, glowColor }) {
             </motion.div>
           )}
         </div>
-        
+
         {/* Hover line */}
-        <motion.div 
+        <motion.div
           className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent"
           initial={{ width: 0 }}
           animate={isHovered ? { width: "100%" } : { width: 0 }}
@@ -202,7 +202,7 @@ function useCounter(target, duration = 2000) {
   const [count, setCount] = useState(0);
   const [started, setStarted] = useState(false);
   const ref = useRef(null);
-  
+
   useEffect(() => {
     const obs = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !started) {
@@ -223,17 +223,17 @@ function useCounter(target, duration = 2000) {
         return () => clearInterval(interval);
       }
     }, { threshold: 0.3 });
-    
+
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, [started, target, duration]);
-  
+
   return { ref, count };
 }
 
 function StatItem({ value, label, icon, color }) {
   const { ref, count } = useCounter(value);
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -242,14 +242,14 @@ function StatItem({ value, label, icon, color }) {
       whileHover={{ y: -5 }}
       className="text-center group"
     >
-      <motion.div 
+      <motion.div
         className="text-4xl mb-3 inline-block"
         whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}
         transition={{ duration: 0.4 }}
       >
         {icon}
       </motion.div>
-      <p 
+      <p
         className="text-4xl font-black mb-1.5"
         style={{ color, textShadow: `0 0 20px ${color}60` }}
       >
@@ -286,7 +286,7 @@ export default function PublicDepartmentsPage() {
 
   return (
     <div className="overflow-x-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-      
+
       {/* HERO SECTION */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -294,16 +294,16 @@ export default function PublicDepartmentsPage() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_60%,rgba(6,182,212,0.1),transparent_55%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_80%,rgba(139,92,246,0.08),transparent_50%)]" />
         </div>
-        
+
         <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.5) 1px,transparent 1px)", backgroundSize: "60px 60px" }}
         />
-        
+
         <FloatingOrb size={400} x="-10%" y="20%" color="rgba(16,185,129,0.08)" delay={0} duration={8} />
         <FloatingOrb size={350} x="70%" y="50%" color="rgba(6,182,212,0.06)" delay={2} duration={10} />
         <FloatingOrb size={300} x="50%" y="10%" color="rgba(139,92,246,0.05)" delay={1} duration={7} />
         <FloatingOrb size={250} x="90%" y="80%" color="rgba(245,158,11,0.04)" delay={3} duration={9} />
-        
+
         {Array.from({ length: 30 }).map((_, i) => (
           <motion.div
             key={i}
@@ -319,7 +319,7 @@ export default function PublicDepartmentsPage() {
             transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 5 }}
           />
         ))}
-        
+
         <motion.div style={{ y: headerY, opacity: headerOpacity }} className="relative max-w-6xl mx-auto px-6 py-20 text-center w-full">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -327,7 +327,7 @@ export default function PublicDepartmentsPage() {
             transition={{ duration: 0.7 }}
           >
             <span className="inline-flex items-center gap-2 bg-emerald-500/10 backdrop-blur-sm text-emerald-400 font-bold text-xs uppercase tracking-widest px-5 py-2.5 rounded-full border border-emerald-500/30 mb-8">
-              <motion.span 
+              <motion.span
                 className="w-1.5 h-1.5 rounded-full bg-emerald-400"
                 animate={{ scale: [1, 1.6, 1], opacity: [1, 0.4, 1] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
@@ -335,8 +335,8 @@ export default function PublicDepartmentsPage() {
               {t("OurServices") || "Medical Excellence"}
             </span>
           </motion.div>
-          
-          <motion.h1 
+
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -345,8 +345,8 @@ export default function PublicDepartmentsPage() {
           >
             {t("Departments") || "Medical Departments"}
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -355,7 +355,7 @@ export default function PublicDepartmentsPage() {
           >
             {t("DepartmentsDescription") || "World-class specialists and state-of-the-art technology across every medical discipline"}
           </motion.p>
-          
+
           <motion.div
             className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
             animate={{ y: [0, 10, 0] }}
@@ -366,7 +366,7 @@ export default function PublicDepartmentsPage() {
           </motion.div>
         </motion.div>
       </section>
-      
+
       {/* STATS SECTION */}
       <section className="relative py-16 border-t border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6">
@@ -378,7 +378,7 @@ export default function PublicDepartmentsPage() {
           </div>
         </div>
       </section>
-      
+
       {/* DEPARTMENTS SECTION */}
       <div className="max-w-7xl mx-auto px-6 py-24">
         {loading ? (
@@ -404,12 +404,12 @@ export default function PublicDepartmentsPage() {
             ))}
           </div>
         ) : departments.length === 0 ? (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="text-center py-32"
           >
-            <motion.div 
+            <motion.div
               className="text-8xl mb-6 inline-block"
               animate={{ rotate: [0, -10, 10, -5, 5, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
@@ -432,10 +432,10 @@ export default function PublicDepartmentsPage() {
                 <span className="w-8 h-px bg-gradient-to-l from-transparent to-emerald-500/50" />
               </p>
             </motion.div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 auto-rows-fr">
               {departments.map((dept, i) => (
-                <DepartmentCard 
+                <DepartmentCard
                   key={dept.id}
                   dept={dept}
                   index={i}
@@ -446,7 +446,7 @@ export default function PublicDepartmentsPage() {
             </div>
           </>
         )}
-        
+
         {/* CTA SECTION */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -457,13 +457,13 @@ export default function PublicDepartmentsPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-teal-900/10 to-slate-900" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(16,185,129,0.15),transparent_60%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_60%,rgba(6,182,212,0.1),transparent_50%)]" />
-          
-          <motion.div 
+
+          <motion.div
             className="absolute inset-0 rounded-3xl"
             animate={{ boxShadow: ["0 0 0px rgba(16,185,129,0)", "0 0 50px rgba(16,185,129,0.15)", "0 0 0px rgba(16,185,129,0)"] }}
             transition={{ duration: 3, repeat: Infinity }}
           />
-          
+
           <div className="relative px-8 py-16 text-center">
             <motion.div
               initial={{ scale: 0 }}
@@ -474,8 +474,8 @@ export default function PublicDepartmentsPage() {
             >
               🩺
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -484,8 +484,8 @@ export default function PublicDepartmentsPage() {
             >
               Not Sure Which Department?
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -494,7 +494,7 @@ export default function PublicDepartmentsPage() {
             >
               Use our intelligent symptom checker to find the right specialist for your needs
             </motion.p>
-            
+
             <Link to="/symptom-checker">
               <MagneticBtn
                 whileHover={{ scale: 1.05 }}
@@ -510,7 +510,7 @@ export default function PublicDepartmentsPage() {
                     →
                   </motion.span>
                 </span>
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600"
                   initial={{ x: "100%" }}
                   whileHover={{ x: 0 }}

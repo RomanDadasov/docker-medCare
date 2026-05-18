@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { clearChatHistory } from "../../api/chatApi";
 import { useToast } from "../../context/ToastContext";
 
-const BASE_URL = "http://localhost:5171";
+const BASE_URL = "http://${import.meta.env.VITE_API_URL}";
 
 const ROOMS = [
   { id: "general", labelKey: "General", roles: ["Admin", "Receptionist", "Doctor"], icon: "💬" },
@@ -81,13 +81,12 @@ const ChatPage = () => {
   return (
     <div className="flex flex-col h-full min-h-0 md:flex-row md:gap-4">
 
-      
+
       <div className="md:hidden flex gap-1.5 bg-white border border-gray-100 rounded-2xl p-2 shrink-0 overflow-x-auto">
         {availableRooms.map((room) => (
           <button key={room.id} onClick={() => setActiveRoom(room.id)}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
-              activeRoom === room.id ? "bg-emerald-500 text-white shadow-md" : "text-slate-500 hover:bg-gray-50"
-            }`}>
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${activeRoom === room.id ? "bg-emerald-500 text-white shadow-md" : "text-slate-500 hover:bg-gray-50"
+              }`}>
             <span>{room.icon}</span>
             <span>{t(room.labelKey)}</span>
           </button>
@@ -100,16 +99,15 @@ const ChatPage = () => {
         </div>
       </div>
 
- 
+
       <div className="hidden md:flex w-56 shrink-0 bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex-col gap-1">
         <p className="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-2 flex items-center gap-2">
           <span>💬</span> {t("Rooms")}
         </p>
         {availableRooms.map((room) => (
           <button key={room.id} onClick={() => setActiveRoom(room.id)}
-            className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
-              activeRoom === room.id ? "bg-emerald-500 text-white shadow-md shadow-emerald-100" : "text-slate-500 hover:bg-gray-50 hover:text-slate-700"
-            }`}>
+            className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${activeRoom === room.id ? "bg-emerald-500 text-white shadow-md shadow-emerald-100" : "text-slate-500 hover:bg-gray-50 hover:text-slate-700"
+              }`}>
             <span className="text-base">{room.icon}</span>
             <span>{t(room.labelKey)}</span>
           </button>
@@ -122,10 +120,10 @@ const ChatPage = () => {
         </div>
       </div>
 
-      
+
       <div className="flex-1 flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden min-h-0 mt-3 md:mt-0">
 
-        
+
         <div className="px-4 md:px-5 py-3 border-b border-gray-100 shrink-0 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-lg md:text-xl">{activeRoomData?.icon}</span>
@@ -163,7 +161,7 @@ const ChatPage = () => {
           </div>
         </div>
 
-     
+
         <div className="flex-1 overflow-y-auto px-3 md:px-5 py-4 space-y-3 md:space-y-4 min-h-0">
           {loadingHistory ? (
             <div className="flex items-center justify-center h-full">
@@ -207,14 +205,13 @@ const ChatPage = () => {
                         <span className={`text-xs px-1.5 py-0.5 rounded-md font-medium border hidden sm:inline ${rc}`}>
                           {msg.senderRole === "Admin" ? "Admin" :
                             msg.senderRole === "Doctor" ? "👨‍⚕️" :
-                            msg.senderRole === "Receptionist" ? "📋" : msg.senderRole}
+                              msg.senderRole === "Receptionist" ? "📋" : msg.senderRole}
                         </span>
                       </div>
                     )}
 
-                    <div className={`px-3 md:px-4 py-2 md:py-2.5 rounded-2xl text-sm leading-relaxed break-words ${
-                      isMe ? "bg-emerald-500 text-white rounded-tr-sm shadow-md shadow-emerald-100" : "bg-gray-100 text-slate-700 rounded-tl-sm"
-                    }`}>
+                    <div className={`px-3 md:px-4 py-2 md:py-2.5 rounded-2xl text-sm leading-relaxed break-words ${isMe ? "bg-emerald-500 text-white rounded-tr-sm shadow-md shadow-emerald-100" : "bg-gray-100 text-slate-700 rounded-tl-sm"
+                      }`}>
                       {msg.attachmentUrl && isImage(msg.attachmentType) && (
                         <img src={fileUrl} alt={msg.attachmentName}
                           className="max-w-40 md:max-w-48 max-h-40 md:max-h-48 rounded-xl mb-2 object-cover cursor-pointer hover:opacity-90 transition-opacity"
@@ -222,9 +219,8 @@ const ChatPage = () => {
                       )}
                       {msg.attachmentUrl && !isImage(msg.attachmentType) && (
                         <a href={fileUrl} target="_blank" rel="noreferrer"
-                          className={`flex items-center gap-2 mb-2 px-3 py-2 rounded-xl border transition-colors ${
-                            isMe ? "bg-emerald-600/50 border-emerald-400/30 hover:bg-emerald-600/70" : "bg-white border-gray-200 hover:bg-gray-50"
-                          }`}>
+                          className={`flex items-center gap-2 mb-2 px-3 py-2 rounded-xl border transition-colors ${isMe ? "bg-emerald-600/50 border-emerald-400/30 hover:bg-emerald-600/70" : "bg-white border-gray-200 hover:bg-gray-50"
+                            }`}>
                           <span className="text-lg">📄</span>
                           <span className={`text-xs font-medium truncate max-w-24 md:max-w-32 ${isMe ? "text-white" : "text-slate-600"}`}>{msg.attachmentName}</span>
                           <span className={`text-xs ml-auto ${isMe ? "text-emerald-200" : "text-slate-400"}`}>⬇</span>
@@ -244,7 +240,7 @@ const ChatPage = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        
+
         {previewFile && (
           <div className="px-4 py-2 border-t border-gray-100 flex items-center gap-3 bg-emerald-50/50 shrink-0">
             <span className="text-lg">{previewFile.type.startsWith("image/") ? "🖼️" : "📄"}</span>
@@ -253,7 +249,7 @@ const ChatPage = () => {
           </div>
         )}
 
-        
+
         <form onSubmit={handleSend} className="px-3 md:px-4 py-3 border-t border-gray-100 flex gap-2 shrink-0">
           <button type="button" onClick={() => fileInputRef.current?.click()} disabled={!connected}
             className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-gray-50 border border-gray-100 hover:bg-emerald-50 hover:border-emerald-200 flex items-center justify-center transition-all disabled:opacity-40 shrink-0">

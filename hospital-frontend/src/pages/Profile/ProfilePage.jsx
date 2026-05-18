@@ -4,7 +4,7 @@ import useTokenStore from "../../stores/tokenStore";
 import Input from "../../components/common/Input";
 import { useTranslation } from "react-i18next";
 
-const BASE_URL = "http://localhost:5171";
+const BASE_URL = "http://${import.meta.env.VITE_API_URL}";
 
 const resolveUrl = (url) => {
   if (!url) return null;
@@ -162,7 +162,7 @@ const ProfilePage = () => {
         </form>
       </div>
 
-      
+
       <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
         <h3 className="font-bold text-lg text-slate-800 mb-4">{t("ChangePassword")}</h3>
 

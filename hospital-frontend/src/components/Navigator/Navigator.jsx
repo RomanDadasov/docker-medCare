@@ -54,19 +54,19 @@ const Navigator = () => {
 
   const profileImageUrl = user?.profileImageUrl
     ? optimizeImage(
-        user.profileImageUrl.startsWith("http")
-          ? user.profileImageUrl
-          : `http://localhost:5171${user.profileImageUrl}`,
-        80, 80
-      )
+      user.profileImageUrl.startsWith("http")
+        ? user.profileImageUrl
+        : `http://${import.meta.env.VITE_API_URL}${user.profileImageUrl}`,
+      80, 80
+    )
     : null;
 
-  
+
   const bottomItems = items.slice(0, 4);
 
   return (
     <>
-     
+
       <motion.aside
         animate={{ width: collapsed ? 72 : 256 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -168,7 +168,7 @@ const Navigator = () => {
         </div>
       </motion.aside>
 
-     
+
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-emerald-950 border-t border-emerald-800/40 px-2 pb-safe">
         <div className="flex items-center justify-around py-2">
           {bottomItems.map((item) => (
@@ -187,7 +187,7 @@ const Navigator = () => {
               )}
             </NavLink>
           ))}
-          
+
           <button onClick={() => setMobileMenuOpen(true)}
             className="flex flex-col items-center gap-1 px-3 py-2 rounded-xl">
             <div className="w-6 h-6 flex items-center justify-center opacity-50">
@@ -200,7 +200,7 @@ const Navigator = () => {
         </div>
       </div>
 
-      
+
       <AnimatePresence>
         {mobileMenuOpen && (
           <>

@@ -2,16 +2,16 @@ import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://localhost:5171/api";
+const API_URL = "http://${import.meta.env.VITE_API_URL}/api";
 
 
 const SPECIALIZATION_COLORS = {
-  Neurology:       { hue: "259 94% 51%", glow: "#8b5cf6", icon: "🧠" },
-  Cardiology:      { hue: "350 89% 60%", glow: "#f43f5e", icon: "❤️" },
-  Orthopedics:     { hue: "38 92% 50%",  glow: "#f59e0b", icon: "🦴" },
-  Pulmonology:     { hue: "199 89% 48%", glow: "#0ea5e9", icon: "🫁" },
-  Gastroenterology:{ hue: "160 84% 39%", glow: "#10b981", icon: "🫃" },
-  Urology:         { hue: "217 91% 60%", glow: "#3b82f6", icon: "🫘" },
+  Neurology: { hue: "259 94% 51%", glow: "#8b5cf6", icon: "🧠" },
+  Cardiology: { hue: "350 89% 60%", glow: "#f43f5e", icon: "❤️" },
+  Orthopedics: { hue: "38 92% 50%", glow: "#f59e0b", icon: "🦴" },
+  Pulmonology: { hue: "199 89% 48%", glow: "#0ea5e9", icon: "🫁" },
+  Gastroenterology: { hue: "160 84% 39%", glow: "#10b981", icon: "🫃" },
+  Urology: { hue: "217 91% 60%", glow: "#3b82f6", icon: "🫘" },
 };
 
 function getSpecColor(spec = "") {
@@ -122,7 +122,7 @@ function DoctorCard({ doc, index }) {
         transition: "box-shadow 0.4s ease",
       }}
     >
-      
+
       <AnimatePresence>
         {hovered && (
           <motion.div
@@ -223,7 +223,7 @@ function DoctorCard({ doc, index }) {
           </p>
         )}
 
-        
+
         {doc.consultationFee > 0 && (
           <p className="text-xs font-black mb-4" style={{ color: color.glow }}>
             ₼ {doc.consultationFee} <span style={{ color: "rgba(255,255,255,0.25)", fontWeight: 400 }}>consultation</span>
@@ -258,7 +258,7 @@ function DoctorCard({ doc, index }) {
         )}
       </div>
 
-      
+
       <div
         className="absolute bottom-0 left-0 right-0 h-px"
         style={{ background: `linear-gradient(to right, transparent, ${color.glow}60, transparent)` }}
@@ -278,19 +278,19 @@ function HeroSection({ search, setSearch, total, t }) {
       className="relative min-h-[60vh] flex items-center overflow-hidden"
       style={{ background: "linear-gradient(135deg,#020c18 0%,#021a14 50%,#050d1a 100%)" }}
     >
-     
+
       <div className="absolute inset-0">
         <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, rgba(16,185,129,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(6,182,212,0.1) 0%, transparent 45%), radial-gradient(circle at 60% 85%, rgba(139,92,246,0.08) 0%, transparent 40%)" }} />
-       
+
         <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(1px 1px at 10% 15%,rgba(255,255,255,0.6),transparent),radial-gradient(1px 1px at 25% 35%,rgba(255,255,255,0.4),transparent),radial-gradient(1px 1px at 40% 10%,rgba(255,255,255,0.5),transparent),radial-gradient(1px 1px at 55% 60%,rgba(255,255,255,0.3),transparent),radial-gradient(1px 1px at 70% 25%,rgba(255,255,255,0.6),transparent),radial-gradient(1px 1px at 85% 70%,rgba(255,255,255,0.4),transparent),radial-gradient(1px 1px at 15% 75%,rgba(255,255,255,0.3),transparent),radial-gradient(1px 1px at 65% 80%,rgba(255,255,255,0.6),transparent)" }} />
       </div>
 
-      
+
       <FloatingOrb size={500} x="5%" y="-10%" color="rgba(16,185,129,0.1)" delay={0} duration={8} />
       <FloatingOrb size={350} x="70%" y="55%" color="rgba(6,182,212,0.08)" delay={2} duration={10} />
       <FloatingOrb size={300} x="40%" y="10%" color="rgba(139,92,246,0.07)" delay={1} duration={7} />
 
-     
+
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)", backgroundSize: "80px 80px" }} />
 
       <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative w-full max-w-5xl mx-auto px-6 py-32 text-center">
@@ -348,8 +348,8 @@ function HeroSection({ search, setSearch, total, t }) {
               style={{ color: "rgba(255,255,255,0.3)", flexShrink: 0 }}
               animate={search ? { color: "#10b981" } : {}}
             >
-              <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.5"/>
-              <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </motion.svg>
             <input
               type="text"
@@ -484,12 +484,12 @@ export default function PublicDoctorsPage() {
         const res = await fetch(`${API_URL}/doctors?pageSize=100`);
         const data = await res.json();
         setDoctors(data?.data?.items || []);
-      } catch {}
+      } catch { }
       finally { setLoading(false); }
     })();
   }, []);
 
-  
+
   const specs = [...new Set(doctors.map(d => d.specialization).filter(Boolean))];
 
   const filtered = doctors.filter((d) => {
@@ -513,7 +513,7 @@ export default function PublicDoctorsPage() {
 
       {/* Grid section */}
       <section className="relative py-20" style={{ background: "#020c18" }}>
-       
+
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 50% 0%, rgba(16,185,129,0.04) 0%, transparent 60%)" }} />
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
 
@@ -544,8 +544,8 @@ export default function PublicDoctorsPage() {
             {loading
               ? [...Array(8)].map((_, i) => <SkeletonCard key={i} />)
               : filtered.length === 0
-              ? <EmptyState t={t} />
-              : filtered.map((doc, i) => <DoctorCard key={doc.id} doc={doc} index={i} />)
+                ? <EmptyState t={t} />
+                : filtered.map((doc, i) => <DoctorCard key={doc.id} doc={doc} index={i} />)
             }
           </div>
         </div>

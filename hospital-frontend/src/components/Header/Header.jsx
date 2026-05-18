@@ -86,9 +86,9 @@ const Header = ({ title }) => {
 
   const totalResults = searchResults
     ? (searchResults.patients?.length || 0) +
-      (searchResults.doctors?.length || 0) +
-      (searchResults.appointments?.length || 0) +
-      (searchResults.staff?.length || 0)
+    (searchResults.doctors?.length || 0) +
+    (searchResults.appointments?.length || 0) +
+    (searchResults.staff?.length || 0)
     : 0;
 
   const SearchDropdown = () => (
@@ -174,7 +174,7 @@ const Header = ({ title }) => {
   return (
     <>
       <header className="h-14 md:h-16 flex items-center justify-between px-4 md:px-6 bg-emerald-950/95 border-b border-emerald-800/40 backdrop-blur-sm z-50 relative">
-        
+
         <div className="flex items-center gap-2 md:gap-3 min-w-0">
           <div className="w-1 h-5 md:h-6 rounded-full bg-emerald-400 shrink-0" />
           <h1 className="text-sm md:text-base font-bold text-emerald-50 truncate">
@@ -182,9 +182,9 @@ const Header = ({ title }) => {
           </h1>
         </div>
 
-        
+
         <div className="hidden md:flex items-center gap-2">
-          
+
           <div ref={searchRef} className="relative">
             <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-900/60 border border-emerald-700/40 hover:bg-emerald-800/60 transition-all w-64">
               <img src="src/assets/icons/search-svgrepo-com (1).svg" alt={t("search")} className="w-3.5 h-3.5 brightness-0 invert shrink-0" />
@@ -202,7 +202,7 @@ const Header = ({ title }) => {
             <SearchDropdown />
           </div>
 
-         
+
           <div className="relative">
             <button onClick={() => setShowLang(!showLang)}
               className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-900/60 border border-emerald-700/40 hover:bg-emerald-800/60 transition-all">
@@ -226,7 +226,7 @@ const Header = ({ title }) => {
             )}
           </div>
 
-          
+
           <button onClick={toggleDarkmode} className="w-9 h-9 rounded-xl bg-emerald-900/60 border border-emerald-700/40 flex items-center justify-center hover:bg-emerald-800/60 transition-all">
             <img src={isDarkmodeActive ? "/src/assets/icons/sun-meteorology-svgrepo-com.svg" : "/src/assets/icons/waningcrescentmoon-svgrepo-com.svg"}
               alt="theme" className="w-4 h-4 opacity-60" />
@@ -235,10 +235,10 @@ const Header = ({ title }) => {
           <NotificationBell />
           <div className="w-px h-6 bg-emerald-800/60 mx-1" />
 
-          
+
           <div className="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-xl hover:bg-emerald-900/50 transition-all" onClick={() => navigate("/profile")}>
             {user?.profileImageUrl ? (
-              <img src={user.profileImageUrl.startsWith("http") ? user.profileImageUrl : `http://localhost:5171${user.profileImageUrl}`}
+              <img src={user.profileImageUrl.startsWith("http") ? user.profileImageUrl : `http://${import.meta.env.VITE_API_URL}${user.profileImageUrl}`}
                 alt="profile" className="w-8 h-8 rounded-xl object-cover shadow-lg" />
             ) : (
               <div className="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xs font-bold shadow-lg">
@@ -251,7 +251,7 @@ const Header = ({ title }) => {
             </div>
           </div>
 
-          
+
           <div className="relative">
             <button onClick={() => setShowLogout(!showLogout)}
               className="w-9 h-9 rounded-xl bg-rose-500/15 border border-rose-500/25 flex items-center justify-center hover:bg-rose-500/25 transition-all">
@@ -269,15 +269,15 @@ const Header = ({ title }) => {
           </div>
         </div>
 
-        
+
         <div className="flex md:hidden items-center gap-1.5">
-          
+
           <button onClick={() => setShowMobileSearch(!showMobileSearch)}
             className="w-8 h-8 rounded-xl bg-emerald-900/60 border border-emerald-700/40 flex items-center justify-center">
             <img src="src/assets/icons/search-svgrepo-com (1).svg" alt="search" className="w-3.5 h-3.5 brightness-0 invert" />
           </button>
 
-          
+
           <div className="relative">
             <button onClick={() => setShowLang(!showLang)}
               className="flex items-center gap-1 px-2 py-1.5 rounded-xl bg-emerald-900/60 border border-emerald-700/40">
@@ -299,7 +299,7 @@ const Header = ({ title }) => {
             )}
           </div>
 
-         
+
           <button onClick={toggleDarkmode} className="w-8 h-8 rounded-xl bg-emerald-900/60 border border-emerald-700/40 flex items-center justify-center">
             <img src={isDarkmodeActive ? "/src/assets/icons/sun-meteorology-svgrepo-com.svg" : "/src/assets/icons/waningcrescentmoon-svgrepo-com.svg"}
               alt="theme" className="w-3.5 h-3.5 opacity-60" />
@@ -307,10 +307,10 @@ const Header = ({ title }) => {
 
           <NotificationBell />
 
-        
+
           <div className="cursor-pointer" onClick={() => navigate("/profile")}>
             {user?.profileImageUrl ? (
-              <img src={user.profileImageUrl.startsWith("http") ? user.profileImageUrl : `http://localhost:5171${user.profileImageUrl}`}
+              <img src={user.profileImageUrl.startsWith("http") ? user.profileImageUrl : `http://${import.meta.env.VITE_API_URL}${user.profileImageUrl}`}
                 alt="profile" className="w-8 h-8 rounded-xl object-cover" />
             ) : (
               <div className="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xs font-bold">
@@ -319,7 +319,7 @@ const Header = ({ title }) => {
             )}
           </div>
 
-        
+
           <div className="relative">
             <button onClick={() => setShowLogout(!showLogout)}
               className="w-8 h-8 rounded-xl bg-rose-500/15 border border-rose-500/25 flex items-center justify-center">
@@ -338,7 +338,7 @@ const Header = ({ title }) => {
         </div>
       </header>
 
-      
+
       {showMobileSearch && (
         <div className="md:hidden bg-emerald-950 border-b border-emerald-800/40 px-4 py-3">
           <div ref={searchRef} className="relative">

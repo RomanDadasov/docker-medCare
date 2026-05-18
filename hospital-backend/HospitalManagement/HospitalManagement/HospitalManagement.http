@@ -1,4 +1,4 @@
-@HospitalManagement_HostAddress = http://localhost:5171
+@HospitalManagement_HostAddress = http://${import.meta.env.VITE_API_URL}
 
 GET {{HospitalManagement_HostAddress}}/weatherforecast/
 Accept: application/json

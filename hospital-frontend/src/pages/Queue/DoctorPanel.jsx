@@ -3,7 +3,7 @@ import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { getTodayQueue, completeAppointment, callNext } from "../../api/queueApi";
 import { useTranslation } from "react-i18next";
 
-const API_URL = "http://localhost:5171";
+const API_URL = "http://${import.meta.env.VITE_API_URL}";
 
 const DoctorPanel = () => {
   const { t } = useTranslation();
@@ -12,13 +12,13 @@ const DoctorPanel = () => {
   const [time, setTime] = useState(new Date());
   const connectionRef = useRef(null);
 
-  
+
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(interval);
   }, []);
 
-  
+
   const fetchQueue = async () => {
     try {
       const res = await getTodayQueue();
@@ -30,12 +30,12 @@ const DoctorPanel = () => {
 
   useEffect(() => {
     fetchQueue();
-    
+
     const interval = setInterval(fetchQueue, 10000);
     return () => clearInterval(interval);
   }, []);
 
-  
+
   useEffect(() => {
     const connection = new HubConnectionBuilder()
       .withUrl(`${API_URL}/hubs/queue`)
@@ -55,7 +55,7 @@ const DoctorPanel = () => {
     return () => connection.stop();
   }, []);
 
- 
+
   const handleComplete = async () => {
     if (!queue?.current) return;
     setLoading(prev => ({ ...prev, complete: true }));
@@ -139,8 +139,8 @@ const DoctorPanel = () => {
           <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4 text-4xl">⏳</div>
           <p className="text-slate-500 font-semibold">{t("NoCurrentPatient")}</p>
           <p className="text-slate-400 text-sm mt-1">{t("WaitForReception")}</p>
-          
-          
+
+
           {nextPatient && !queue?.current && (
             <button
               onClick={() => handleCall(nextPatient.id)}
@@ -153,14 +153,14 @@ const DoctorPanel = () => {
         </div>
       )}
 
-      
+
       {queue?.waiting?.length > 0 && (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
           <h2 className="font-bold text-slate-800 mb-4">⏳ {t("Waiting")} ({queue.waiting.length} {t("People")})</h2>
           <div className="space-y-2">
             {queue.waiting.map((apt, i) => (
-              <div 
-                key={apt.id} 
+              <div
+                key={apt.id}
                 className={`flex items-center justify-between p-3 rounded-xl ${i === 0 ? "bg-amber-50 border border-amber-100" : "bg-slate-50"}`}
               >
                 <div className="flex items-center gap-3">
@@ -172,8 +172,8 @@ const DoctorPanel = () => {
                     <p className="text-xs text-slate-400">~{apt.estimatedWaitMinutes} {t("MinutesWait")}</p>
                   </div>
                 </div>
-                
-               
+
+
                 {i === 0 && !queue?.current && (
                   <button
                     onClick={() => handleCall(apt.id)}
