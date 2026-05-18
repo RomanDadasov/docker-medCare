@@ -44,11 +44,11 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: [ "CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Password123' -Q 'SELECT 1' -No" ]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 30s
+      test: [ "CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Password123' -Q 'SELECT 1' -b -o /dev/null -C" ]
+      interval: 15s
+      timeout: 15s
+      retries: 25
+      start_period: 60s
 
 volumes:
   sql_data:
