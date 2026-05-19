@@ -58,7 +58,7 @@ const StatCard = ({ label, value, icon, change, gradient, glow }) => (
       boxShadow: `0 6px 28px ${glow}, inset 0 1px 0 rgba(255,255,255,0.95)`,
     }}>
     <div className="absolute inset-0 rounded-3xl"
-      style={{ background: `radial-gradient(circle at 25% 25%, ${glow.replace("0.28","0.1")} 0%, transparent 65%)` }} />
+      style={{ background: `radial-gradient(circle at 25% 25%, ${glow.replace("0.28", "0.1")} 0%, transparent 65%)` }} />
     <div className="absolute bottom-0 left-0 right-0 h-0.5 rounded-b-3xl"
       style={{ background: `linear-gradient(90deg, ${gradient})`, opacity: 0.8 }} />
     <div className="relative z-10 flex items-start justify-between gap-3">
@@ -70,7 +70,7 @@ const StatCard = ({ label, value, icon, change, gradient, glow }) => (
       <div className="w-12 h-12 rounded-2xl shrink-0 overflow-hidden flex items-center justify-center shadow-lg"
         style={{ background: `linear-gradient(135deg, ${gradient})`, boxShadow: `0 4px 16px ${glow}` }}>
         <img src={icon} alt={label} className="w-full h-full object-cover" loading="lazy"
-          onError={(e) => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
+          onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }} />
         <span className="text-xl hidden items-center justify-center w-full h-full">🏥</span>
       </div>
     </div>
@@ -190,20 +190,27 @@ const DashboardPage = () => {
   );
 
   const statItems = [
-    { label: t("Patients"), value: stats?.totalPatients?.toLocaleString() || "0",
+    {
+      label: t("Patients"), value: stats?.totalPatients?.toLocaleString() || "0",
       icon: "src/assets/img/End-of-Life-Care.jpg",
       change: isDoctor ? t("MyPatients") : t("AddedThisMonth"),
-      gradient: "#38bdf8, #0ea5e9", glow: "rgba(56,189,248,0.28)" },
+      gradient: "#38bdf8, #0ea5e9", glow: "rgba(56,189,248,0.28)"
+    },
     ...(!isDoctor ? [{
       label: t("TotalDoctors"), value: stats?.totalDoctors || 0,
       icon: "src/assets/img/OIP.webp", change: t("ActiveDoctors"),
-      gradient: "#34d399, #059669", glow: "rgba(52,211,153,0.28)" }] : []),
-    { label: t("TodayAppointments"), value: stats?.todayAppointments || 0,
+      gradient: "#34d399, #059669", glow: "rgba(52,211,153,0.28)"
+    }] : []),
+    {
+      label: t("TodayAppointments"), value: stats?.todayAppointments || 0,
       icon: "src/assets/img/OIP (1).webp", change: t("Today"),
-      gradient: "#fbbf24, #d97706", glow: "rgba(251,191,36,0.28)" },
-    { label: t("PendingAppointments"), value: stats?.pendingAppointments || 0,
+      gradient: "#fbbf24, #d97706", glow: "rgba(251,191,36,0.28)"
+    },
+    {
+      label: t("PendingAppointments"), value: stats?.pendingAppointments || 0,
       icon: "src/assets/img/indir.webp", change: t("Pending"),
-      gradient: "#fb7185, #e11d48", glow: "rgba(251,113,133,0.28)" },
+      gradient: "#fb7185, #e11d48", glow: "rgba(251,113,133,0.28)"
+    },
   ];
 
   const today = new Date();
@@ -213,15 +220,15 @@ const DashboardPage = () => {
   const calDays = Array.from({ length: firstDay }, () => null)
     .concat(Array.from({ length: daysInMonth }, (_, i) => i + 1));
 
-  const deptColors = ["#059669","#0284c7","#d97706","#dc2626","#7c3aed","#0891b2","#ea580c","#db2777"];
+  const deptColors = ["#059669", "#0284c7", "#d97706", "#dc2626", "#7c3aed", "#0891b2", "#ea580c", "#db2777"];
 
   return (
     <div className="relative pb-20 md:pb-0 overflow-hidden" style={bgStyle}>
       <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: -1 }}>
-        <Orb color="rgba(16,185,129,1)"  size="520px" top="-120px" left="-120px" opacity={0.22} />
-        <Orb color="rgba(5,150,105,1)"   size="440px" bottom="-100px" right="-80px" opacity={0.18} />
-        <Orb color="rgba(52,211,153,1)"  size="300px" top="40%" left="45%" opacity={0.15} />
-        <Orb color="rgba(14,165,233,1)"  size="260px" top="15%" right="5%" opacity={0.12} />
+        <Orb color="rgba(16,185,129,1)" size="520px" top="-120px" left="-120px" opacity={0.22} />
+        <Orb color="rgba(5,150,105,1)" size="440px" bottom="-100px" right="-80px" opacity={0.18} />
+        <Orb color="rgba(52,211,153,1)" size="300px" top="40%" left="45%" opacity={0.15} />
+        <Orb color="rgba(14,165,233,1)" size="260px" top="15%" right="5%" opacity={0.12} />
       </div>
 
       <div className="relative z-10 p-4 md:p-6 space-y-5">
@@ -239,7 +246,7 @@ const DashboardPage = () => {
                 <span className="ml-2 text-emerald-500 font-black">·</span>
               </h1>
               <p className="text-xs md:text-sm mt-0.5" style={{ color: "rgba(6,78,59,0.55)" }}>
-                {isDoctor ? t("DoctorPanel") : "Hospital Management System"}
+                {isDoctor ? t("DoctorPanel") : "Hospital Management System v2"}
               </p>
             </div>
           </div>
@@ -339,18 +346,18 @@ const DashboardPage = () => {
                 <div className="flex items-center justify-between mb-4 relative z-10">
                   <h3 className="font-bold text-sm" style={{ color: "#064e3b" }}>{formatDateLabel(currentTime)}</h3>
                   <div className="flex gap-1">
-                    {["‹","›"].map((ch, i) => (
+                    {["‹", "›"].map((ch, i) => (
                       <button key={i} className="w-7 h-7 rounded-xl flex items-center justify-center font-bold transition-all"
                         style={{ background: "rgba(5,150,105,0.14)", border: "1.5px solid rgba(5,150,105,0.25)", color: "#047857" }}
-                        onMouseEnter={(e) => { e.currentTarget.style.background="rgba(5,150,105,0.25)"; e.currentTarget.style.color="#064e3b"; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.background="rgba(5,150,105,0.14)"; e.currentTarget.style.color="#047857"; }}>
+                        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(5,150,105,0.25)"; e.currentTarget.style.color = "#064e3b"; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(5,150,105,0.14)"; e.currentTarget.style.color = "#047857"; }}>
                         {ch}
                       </button>
                     ))}
                   </div>
                 </div>
                 <div className="grid grid-cols-7 mb-1 relative z-10">
-                  {["M","T","W","T","F","S","S"].map((d, i) => (
+                  {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
                     <div key={i} className="text-center text-xs font-semibold py-1"
                       style={{ color: "rgba(6,95,70,0.55)" }}>{d}</div>
                   ))}
@@ -358,10 +365,9 @@ const DashboardPage = () => {
                 <div className="grid grid-cols-7 gap-0.5 relative z-10">
                   {calDays.map((day, i) => (
                     <div key={i}
-                      className={`aspect-square flex items-center justify-center text-xs rounded-xl transition-all duration-150 font-medium ${
-                        day === today.getDate() ? "text-white font-black shadow-md"
+                      className={`aspect-square flex items-center justify-center text-xs rounded-xl transition-all duration-150 font-medium ${day === today.getDate() ? "text-white font-black shadow-md"
                           : day ? "cursor-pointer hover:bg-emerald-100/80" : ""
-                      }`}
+                        }`}
                       style={{
                         color: day === today.getDate() ? undefined : day ? "rgba(6,78,59,0.7)" : undefined,
                         ...(day === today.getDate() ? {
@@ -399,15 +405,15 @@ const DashboardPage = () => {
                         initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.6 + i * 0.05 }}
                         className="flex items-center gap-3 p-2.5 rounded-xl cursor-pointer transition-all duration-150"
-                        onMouseEnter={(e) => e.currentTarget.style.background="rgba(5,150,105,0.09)"}
-                        onMouseLeave={(e) => e.currentTarget.style.background="transparent"}>
+                        onMouseEnter={(e) => e.currentTarget.style.background = "rgba(5,150,105,0.09)"}
+                        onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}>
                         <div className="w-9 h-9 rounded-xl overflow-hidden shrink-0 flex items-center justify-center"
                           style={{ background: `${c}25`, border: `1.5px solid ${c}60` }}>
                           {dept.imageUrl ? (
                             <img src={dept.imageUrl} alt={dept.name} className="w-full h-full object-cover" loading="lazy" />
                           ) : (
                             <img src="src/assets/img/hsp.webp" alt="dept" className="w-full h-full object-cover"
-                              onError={(e) => { e.target.style.display="none"; }} />
+                              onError={(e) => { e.target.style.display = "none"; }} />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
