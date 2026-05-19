@@ -3,6 +3,8 @@ services:
     build:
       context: ./hospital-frontend
       dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://51.21.160.18:5171
     image: roman913/hospital-frontend:latest
     restart: always
     ports:
@@ -24,7 +26,8 @@ services:
       - ConnectionStrings__HospitalDBConnectionString=Server=db,1433;Database=HospitalManagementDB;User ID=sa;Password=YourStrong!Password123;TrustServerCertificate=True;
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - app-network
 
@@ -41,6 +44,12 @@ services:
       - sql_data:/var/opt/mssql
     networks:
       - app-network
+    healthcheck:
+      test: [ "CMD-SHELL", "timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/1433' && echo 'Port open' || exit 1" ]
+      interval: 15s
+      timeout: 10s
+      retries: 15
+      start_period: 60s
 
 volumes:
   sql_data:
